@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <head>
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-PLACEHOLDER"
+          src="https://www.googletagmanager.com/gtag/js?id=G-538544203"
           strategy="afterInteractive"
         />
         <Script id="ga4-init" strategy="afterInteractive">
@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
               analytics_storage: 'granted',
               ad_storage: 'denied',
             });
-            gtag('config', 'G-PLACEHOLDER');
+            gtag('config', 'G-538544203');
           `}
         </Script>
       </head>
