@@ -1,0 +1,472 @@
+/* ============================================================
+   MOSFET Viz styling
+   ============================================================ */
+.mosfet-viz {
+  display: grid; gap: 1rem;
+}
+.mosfet-viz__stage {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  padding: 1rem 1rem 0.5rem;
+}
+.mosfet-viz__stage::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 28px;
+  background-image: repeating-linear-gradient(90deg, transparent 0 28px, var(--rule) 28px 29px);
+  opacity: 0.3; pointer-events: none;
+}
+.mosfet-svg { display: block; max-width: 100%; }
+
+.mosfet-viz[data-size="md"] .mosfet-viz__stage { padding: 0.5rem; }
+
+.mosfet-viz__readout {
+  display: flex; flex-direction: column; gap: 0.4rem;
+  padding: 0.8rem 1rem;
+  border-top: 1px dashed var(--rule);
+}
+.readout-row { display: flex; align-items: center; gap: 0.6rem; }
+.readout-row .eyebrow { min-width: 80px; }
+.readout-val { font-size: 22px; font-family: 'Instrument Serif', serif; letter-spacing: -0.01em; }
+.readout-note {
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  border-top: 1px dotted var(--rule);
+  padding-top: 8px;
+  margin-top: 4px;
+}
+
+/* ---- annotation toolbar ---- */
+.mosfet-viz__toolbar {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  padding: 8px 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--rule);
+}
+.viz-toolbtn {
+  padding: 6px 12px;
+  border: 1px solid var(--rule-strong);
+  background: var(--paper);
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+}
+.viz-toolbtn:hover { color: var(--ink); border-color: var(--ink); }
+.viz-toolbtn.is-on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+.viz-toolbar__quick { display: flex; align-items: center; gap: 6px; margin-left: auto; flex-wrap: wrap; }
+.viz-toolbtn-mini {
+  padding: 4px 10px;
+  font-size: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+}
+.viz-toolbtn-mini:hover { color: var(--accent-ink); border-color: var(--accent); background: var(--accent-soft); }
+
+/* ---- callout cards ---- */
+.callout-cards {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;
+  margin-top: 4px;
+}
+.callout-card {
+  display: grid; grid-template-columns: 28px 1fr;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  transition: border-color 120ms ease, background 120ms ease;
+}
+.callout-card.is-hot { border-color: var(--accent); background: var(--accent-soft); }
+.callout-card__num {
+  width: 22px; height: 22px;
+  display: grid; place-items: center;
+  background: var(--ink); color: var(--paper);
+  border-radius: 50%;
+  font-size: 11px;
+}
+.callout-card__label { font-family: 'Instrument Serif', serif; font-size: 17px; font-style: italic; line-height: 1; }
+.callout-card__def { font-size: 12px; color: var(--ink-soft); line-height: 1.5; margin-top: 4px; }
+
+.callout { cursor: help; }
+
+/* ---- controls ---- */
+.mosfet-viz__controls {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+}
+.ctrl { display: grid; gap: 0.4rem; }
+.ctrl__head { display: flex; align-items: center; gap: 0.5rem; }
+.ctrl__num {
+  margin-left: auto;
+  border: 1px solid var(--rule-strong);
+  background: var(--surface);
+  padding: 4px 8px;
+  width: 76px; text-align: right;
+  border-radius: 2px;
+  font-size: 14px;
+}
+.ctrl__num:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.ctrl__slider {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 24px; background: transparent; cursor: ew-resize;
+}
+.ctrl__slider::-webkit-slider-runnable-track { height: 2px; background: var(--rule-strong); }
+.ctrl__slider::-moz-range-track { height: 2px; background: var(--rule-strong); }
+.ctrl__slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px; height: 16px; background: var(--ink); border-radius: 50%; margin-top: -7px;
+  border: 2px solid var(--paper);
+}
+.ctrl__slider::-moz-range-thumb {
+  width: 14px; height: 14px; background: var(--ink); border-radius: 50%; border: 2px solid var(--paper);
+}
+.ctrl__scale {
+  display: flex; justify-content: space-between;
+  font-size: 10px; color: var(--ink-mute);
+}
+
+@keyframes flow {
+  to { stroke-dashoffset: -116; }
+}
+
+.mosfet-viz[data-size="md"] .readout-val { font-size: 18px; }
+.mosfet-viz[data-size="md"] .mosfet-viz__controls { gap: 0.75rem; }
+.mosfet-viz[data-size="sm"] .mosfet-viz__readout { padding: 0.5rem 0.75rem; }
+.mosfet-viz[data-size="sm"] .readout-val { font-size: 16px; }
+
+/* ============================================================
+   MOSFETStage — biology-textbook stage for the Viz tab
+   ============================================================ */
+.viz-tab { padding-bottom: 80px; }
+
+.vizstage {
+  display: grid;
+  grid-template-columns: 1fr;
+  border: 1px solid var(--rule-strong);
+  background: var(--surface);
+  margin-top: 24px;
+}
+.vizstage__statebar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 22px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper-2);
+  flex-wrap: wrap; gap: 12px;
+}
+.vizstage__statebar-l { display: inline-flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.vizstage__statebar-r { display: inline-flex; align-items: baseline; gap: 6px; }
+.vizstage__statenum {
+  font-size: 12px; color: var(--accent-ink);
+  background: var(--accent-soft);
+  padding: 3px 9px;
+  letter-spacing: 0.08em;
+}
+.vizstage__statename {
+  font-size: 30px; font-style: italic; line-height: 1;
+  letter-spacing: -0.01em;
+}
+.vizstage__statesub {
+  font-size: 12px; color: var(--ink-mute);
+  letter-spacing: 0.04em;
+}
+.vizstage__id {
+  font-size: 30px; line-height: 1;
+  letter-spacing: -0.01em;
+}
+.vizstage__idunit { font-size: 12px; color: var(--ink-mute); margin-left: 4px; letter-spacing: 0.06em; }
+
+.vizstage__stage {
+  position: relative;
+  padding: 28px 36px 22px;
+  background:
+    linear-gradient(var(--surface), var(--surface)),
+    repeating-linear-gradient(0deg, transparent 0 28px, var(--rule) 28px 29px);
+  background-blend-mode: normal;
+  border-bottom: 1px solid var(--rule);
+}
+.vizstage__stage::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(90deg, transparent 0 40px, var(--rule) 40px 41px),
+                    repeating-linear-gradient(0deg, transparent 0 40px, var(--rule) 40px 41px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+.msstage-svg {
+  display: block;
+  max-width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* dynamic callout (the channel/depletion ones) get a soft fill so state-change is visible */
+.msstage-callout[data-tone="dynamic"] rect {
+  filter: drop-shadow(0 1px 0 rgba(22,22,19,0.04));
+}
+
+/* state-change transition signal */
+.vizstage[data-region] .vizstage__statename {
+  animation: vizstateFade 280ms ease both;
+}
+@keyframes vizstateFade {
+  from { opacity: 0.0; transform: translateY(-3px); }
+  to   { opacity: 1.0; transform: none; }
+}
+
+/* ---- dynamic explanation panel ---- */
+.vizstage__explain {
+  display: grid;
+  grid-template-columns: 1.3fr 2fr 1fr;
+  gap: 28px;
+  padding: 22px 28px;
+  background: var(--paper);
+  align-items: start;
+}
+.vizexplain__lead { display: grid; gap: 6px; }
+.vizexplain__head {
+  font-size: clamp(22px, 2vw, 28px);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+  margin: 0;
+}
+.vizexplain__body {
+  font-family: 'Instrument Serif', serif;
+  font-size: 18px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  margin: 0;
+  text-wrap: pretty;
+}
+.vizexplain__formula {
+  font-size: 13px;
+  padding: 12px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--rule);
+  color: var(--accent-ink);
+  letter-spacing: 0.02em;
+  align-self: center;
+}
+
+/* per-region tint on the panel */
+.vizstage[data-region="cutoff"]     .vizexplain__formula { color: var(--ink-soft); }
+.vizstage[data-region="threshold"]  .vizexplain__formula { color: var(--amber-ink); background: var(--amber-soft); border-color: var(--amber); }
+.vizstage[data-region="linear"]     .vizexplain__formula { color: var(--accent-ink); background: var(--accent-soft); }
+.vizstage[data-region="saturation"] .vizexplain__formula { color: var(--amber-ink); background: var(--amber-soft); border-color: var(--amber); }
+
+/* ---- controls ---- */
+.vizctrl {
+  display: grid; gap: 14px;
+  margin-top: 18px;
+  padding: 18px 22px;
+  border: 1px solid var(--rule);
+  background: var(--paper-2);
+}
+.vizctrl__row { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.vizctrl__row--quick {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  border-top: 1px dashed var(--rule);
+  padding-top: 14px;
+  flex-wrap: wrap;
+}
+.vizctrl__slot { display: grid; gap: 6px; }
+.vizctrl__head { display: flex; align-items: center; gap: 8px; }
+.vizctrl__num {
+  margin-left: auto;
+  border: 1px solid var(--rule-strong);
+  background: var(--surface);
+  padding: 4px 8px;
+  width: 80px; text-align: right;
+  border-radius: 2px;
+  font-size: 14px;
+}
+.vizctrl__num:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.vizctrl__unit { font-size: 11px; color: var(--ink-mute); letter-spacing: 0.06em; }
+.vizctrl__slider { height: 28px; }
+
+.vizctrl__quicklbl { letter-spacing: 0.14em; }
+.vizctrl__quickbtns { display: inline-flex; gap: 0; border: 1px solid var(--rule-strong); }
+.vizctrl__jumpbtn {
+  display: inline-flex; flex-direction: column; align-items: flex-start; gap: 2px;
+  padding: 8px 14px;
+  background: var(--paper);
+  border-right: 1px solid var(--rule);
+  min-width: 110px;
+  transition: background 120ms ease, color 120ms ease;
+}
+.vizctrl__jumpbtn:last-child { border-right: none; }
+.vizctrl__jumpbtn:hover { background: var(--surface); }
+.vizctrl__jumpbtn.is-active {
+  background: var(--ink); color: var(--paper);
+}
+.vizctrl__jumpbtn.is-active .vizctrl__jumpnum { color: var(--paper); background: rgba(255,255,255,0.18); }
+.vizctrl__jumpnum {
+  font-size: 9px; letter-spacing: 0.1em;
+  color: var(--ink-mute);
+  background: var(--surface-2);
+  padding: 1px 5px;
+}
+.vizctrl__jumpname {
+  font-size: 16px; font-style: italic;
+  line-height: 1;
+}
+
+/* ---- real-world consequence ---- */
+.vizrw {
+  margin-top: 28px;
+  padding: 20px 24px;
+  border-left: 3px solid var(--ink);
+  background: var(--surface);
+}
+.vizrw__toggle {
+  font-size: 11px;
+  color: var(--ink-soft);
+  background: transparent;
+  border: 1px solid var(--rule);
+  padding: 3px 8px;
+}
+.vizrw__head {
+  font-size: clamp(26px, 2.6vw, 36px);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  margin: 0 0 10px;
+  max-width: 24ch;
+}
+.vizrw__copy {
+  font-family: 'Instrument Serif', serif;
+  font-size: 20px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  margin: 0;
+  text-wrap: pretty;
+  max-width: 60ch;
+}
+
+/* tint the rail per state */
+.viz-tab[data-region="cutoff"]     .vizrw { border-left-color: var(--ink-mute); }
+.viz-tab[data-region="threshold"]  .vizrw { border-left-color: var(--amber); }
+.viz-tab[data-region="linear"]     .vizrw { border-left-color: var(--accent); }
+.viz-tab[data-region="saturation"] .vizrw { border-left-color: var(--amber-ink); }
+
+/* ============================================================
+   Chip-scale impact section
+   ============================================================ */
+.chipscale { display: grid; gap: 14px; }
+.chipscale__head {
+  font-size: clamp(40px, 5.4vw, 78px);
+  line-height: 1.0;
+  letter-spacing: -0.025em;
+  margin: 4px 0 8px;
+  max-width: 20ch;
+}
+.chipscale__x { color: var(--accent); font-style: italic; }
+.chipscale__sub {
+  font-family: 'Instrument Serif', serif;
+  font-size: 21px;
+  line-height: 1.4;
+  color: var(--ink-soft);
+  margin: 0 0 16px;
+  max-width: 60ch;
+}
+
+.chipscale__table {
+  display: grid;
+  grid-template-rows: auto;
+  border-top: 1px solid var(--rule-strong);
+}
+.chipscale__row {
+  display: grid;
+  grid-template-columns: 1.3fr 1.6fr 1.6fr;
+  gap: 20px;
+  padding: 18px 16px;
+  border-bottom: 1px solid var(--rule);
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  transition: background 120ms ease;
+}
+.chipscale__row:hover { background: var(--surface); }
+.chipscale__row.is-active {
+  background: var(--paper-2);
+  border-left: 2px solid var(--accent);
+  padding-left: 14px;
+}
+.chipscale__row--head {
+  border-bottom: 1px solid var(--rule-strong);
+  background: transparent !important;
+  cursor: default;
+  padding-top: 10px; padding-bottom: 10px;
+}
+.chipscale__row--head .mono {
+  font-size: 10px; letter-spacing: 0.12em; color: var(--ink-mute);
+  text-transform: uppercase;
+}
+.chipscale__state { display: grid; gap: 4px; align-content: center; }
+.chipscale__statenum {
+  font-size: 10px;
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+  padding: 2px 7px;
+  letter-spacing: 0.1em;
+  width: max-content;
+}
+.chipscale__statename { font-size: 26px; font-style: italic; line-height: 1; }
+.chipscale__statesub { font-size: 10px; color: var(--ink-mute); letter-spacing: 0.05em; }
+.chipscale__tag {
+  position: absolute;
+  right: 14px; top: 14px;
+  font-size: 9px;
+  color: var(--paper);
+  background: var(--accent);
+  padding: 2px 7px;
+  letter-spacing: 0.1em;
+}
+
+.chipscale__narration {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 32px;
+  margin-top: 24px;
+  padding: 24px;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+}
+.chipscale__nartext {
+  font-size: 22px;
+  line-height: 1.4;
+  margin: 0;
+  text-wrap: pretty;
+  max-width: 50ch;
+}
+.chipscale__bignum {
+  border-left: 1px dashed var(--rule);
+  padding-left: 24px;
+  align-self: center;
+  display: grid; gap: 8px;
+}
+.chipscale__bigval {
+  font-size: clamp(40px, 4.4vw, 60px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--accent-ink);
+}
+.chipscale__bigval sup { font-size: 0.4em; }
+.chipscale__bigsub { font-size: 11px; color: var(--ink-mute); letter-spacing: 0.04em; }
+
+/* responsive */
+@media (max-width: 1200px) {
+  .vizstage__explain { grid-template-columns: 1fr; }
+  .chipscale__narration { grid-template-columns: 1fr; }
+  .chipscale__bignum { border-left: none; padding-left: 0; border-top: 1px dashed var(--rule); padding-top: 16px; }
+}
+@media (max-width: 900px) {
+  .vizctrl__row { grid-template-columns: 1fr; }
+  .chipscale__row { grid-template-columns: 1fr; gap: 6px; }
+  .vizctrl__quickbtns { flex-wrap: wrap; }
+}

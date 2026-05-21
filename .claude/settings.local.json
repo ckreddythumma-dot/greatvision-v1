@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(bash -c '~/.claude/skills/gstack/bin/gstack-review-log --skill plan-ceo-review --outcome pass --plan-file ~/.gstack/projects/v1/ceo-plans/2026-05-21-greatvision-v1.md 2>&1' 2>$null; bash -c '~/.claude/skills/gstack/bin/gstack-review-read 2>&1' 2>$null)",
+      "PowerShell($env:HOME = $env:USERPROFILE; bash \"C:/Users/chand_1llb7jc/.claude/skills/gstack/bin/gstack-review-log\" --skill plan-ceo-review --outcome pass --plan-file \"C:/Users/chand_1llb7jc/.gstack/projects/v1/ceo-plans/2026-05-21-greatvision-v1.md\" 2>&1)",
+      "PowerShell(New-Item *)",
+      "PowerShell(npm install *)",
+      "PowerShell(npm run *)",
+      "PowerShell(git add *)"
+    ]
+  }
+}

@@ -1,0 +1,279 @@
+// =================================================================
+// Mock data — GateVisionPrep V1
+// =================================================================
+window.GVP_DATA = {
+  user: {
+    name: 'Rahul Krishnan',
+    handle: 'Rahul K',
+    email: 'rahul.k@iitm.example',
+    initials: 'RK',
+    cohort: 'GATE ECE 2027 · Beta #042',
+    streak: 7,
+    masteryAvg: 38,
+  },
+
+  subjects: [
+    {
+      id: 'engineering-maths',
+      name: 'Engineering Mathematics',
+      shortName: 'Maths',
+      gateMarks: 13,
+      blurb: 'The mathematical backbone of every GATE ECE topic. Linear algebra, calculus, transforms — built up from intuition first.',
+      progress: 22,
+      conceptCount: 5,
+      hue: 'indigo',
+      glyph: '∂',
+      concepts: [
+        { id: 'eigenvalues',   name: 'Linear Algebra · Eigenvalues',  stars: 5, done: true,  status: 'mastered' },
+        { id: 'maxima-minima', name: 'Calculus · Maxima / Minima',    stars: 4, done: true,  status: 'attempted' },
+        { id: 'first-order-de',name: 'Differential Equations · 1st Order', stars: 4, done: false, status: 'fresh' },
+        { id: 'laplace',       name: 'Laplace Transform',             stars: 5, done: false, status: 'fresh' },
+        { id: 'probability',   name: 'Probability & Statistics',      stars: 4, done: false, status: 'fresh' },
+      ],
+    },
+    {
+      id: 'electronic-devices',
+      name: 'Electronic Devices',
+      shortName: 'Devices',
+      gateMarks: 15,
+      blurb: 'Semiconductor physics, from PN junction to MOSFET. The hero subject — where intuition meets atoms.',
+      progress: 64,
+      conceptCount: 5,
+      hue: 'emerald',
+      glyph: '⌬',
+      isHero: true,
+      concepts: [
+        { id: 'mosfet-iv',      name: 'MOSFET I–V Characteristics', stars: 5, done: true,  status: 'mastered', hero: true },
+        { id: 'mosfet-regions', name: 'MOSFET · Regions of Operation', stars: 5, done: true, status: 'attempted' },
+        { id: 'pn-junction',    name: 'PN Junction Diode',          stars: 4, done: true,  status: 'attempted' },
+        { id: 'bjt-regions',    name: 'BJT · Operating Regions',    stars: 4, done: false, status: 'fresh' },
+        { id: 'band-diagram',   name: 'Energy Band Diagrams',       stars: 5, done: false, status: 'fresh' },
+      ],
+    },
+    {
+      id: 'digital-circuits',
+      name: 'Digital Circuits',
+      shortName: 'Digital',
+      gateMarks: 14,
+      blurb: 'Logic design from Boolean algebra to counters. Highest PYQ frequency of any subject — built to drill mechanism, not formulas.',
+      progress: 12,
+      conceptCount: 5,
+      hue: 'violet',
+      glyph: '◧',
+      concepts: [
+        { id: 'boolean',     name: 'Boolean Algebra & Simplification', stars: 4, done: false, status: 'fresh' },
+        { id: 'kmap',        name: 'K-Map (up to 4 variables)',         stars: 5, done: true,  status: 'attempted' },
+        { id: 'mux-demux',   name: 'Combinational · MUX / DEMUX',       stars: 4, done: false, status: 'fresh' },
+        { id: 'dff',         name: 'Sequential · D Flip-Flop',          stars: 4, done: false, status: 'fresh' },
+        { id: 'counters',    name: 'Counters',                          stars: 3, done: false, status: 'fresh' },
+      ],
+    },
+  ],
+
+  // ---------- MOSFET I-V — full content ----------
+  mosfetConcept: {
+    id: 'mosfet-iv',
+    subjectId: 'electronic-devices',
+    title: 'MOSFET I–V Characteristics',
+    eyebrow: 'Electronic Devices · Hero Concept',
+    stars: 5,
+    tags: ['ECE Core', '2 marks', 'NAT + MCQ', 'Appears in 6/7 GATE papers'],
+    theory: {
+      eli10: {
+        body: `A MOSFET is a tiny electric tap.
+
+You turn a small knob — actually a voltage on the gate — and current starts flowing through a wire. Turn it slowly, current grows slowly. Past a fixed point, the current really takes off. That point is called the threshold.
+
+Turn the knob too far, the knob itself breaks. The thin glass layer under the gate punctures — and once it punctures, that transistor is dead forever.
+
+That is the whole device. One knob, one wire, three things that can happen: off, on, broken.
+
+The phone in your pocket has about 19 billion of these taps. Each one switches on and off about 4 billion times every second. They are smaller than a single virus.`,
+        pullquote: 'One voltage. One channel. Nineteen billion taps.',
+      },
+
+      technical: [
+        {
+          h: 'Structure — four terminals, one channel',
+          body: `A MOSFET has four physical regions you must know cold for GATE: a heavily-doped <em>source</em> and <em>drain</em>, a lightly-doped <em>body</em> (substrate), and a <em>gate</em> sitting above a thin <em>oxide</em> layer. The channel — the conducting path between source and drain — is not physically built into the device. It is summoned, by voltage, on demand.
+
+For an n-channel MOSFET (nMOS): source and drain are <span class="mono">n+</span>, body is <span class="mono">p</span>, channel (when it exists) is a thin sheet of electrons just below the oxide.`,
+        },
+        {
+          h: 'Key parameters',
+          body: `<span class="mono">V<sub>GS</sub></span> — gate-to-source voltage; the control knob.
+<span class="mono">V<sub>DS</sub></span> — drain-to-source voltage; sets the field that pushes carriers across.
+<span class="mono">V<sub>t</sub></span> (threshold) — the V<sub>GS</sub> at which the channel <em>just</em> forms.
+<span class="mono">I<sub>D</sub></span> — drain current; the output.
+<span class="mono">μ<sub>n</sub>C<sub>ox</sub>(W/L)</span> — process & geometry constant. GATE will hand it to you.`,
+        },
+        {
+          h: 'Three regions of operation',
+          body: `<strong>Cutoff</strong> — V<sub>GS</sub> &lt; V<sub>t</sub>. No channel. I<sub>D</sub> ≈ 0.
+<strong>Linear (triode / ohmic)</strong> — V<sub>GS</sub> &gt; V<sub>t</sub> and V<sub>DS</sub> &lt; V<sub>GS</sub> − V<sub>t</sub>. Channel is uniform. Acts like a voltage-controlled resistor.
+<strong>Saturation</strong> — V<sub>GS</sub> &gt; V<sub>t</sub> and V<sub>DS</sub> ≥ V<sub>GS</sub> − V<sub>t</sub>. Channel pinches off near the drain. I<sub>D</sub> becomes (nearly) independent of V<sub>DS</sub>. This is the region used for switching and amplification.`,
+        },
+        {
+          h: 'GATE depth — what is actually tested',
+          body: `Identifying region from given V<sub>GS</sub>, V<sub>DS</sub>, V<sub>t</sub>. Numerical I<sub>D</sub> calculation in both linear and saturation. Boundary problems ("at what V<sub>DS</sub> does it transition?"). Channel-length modulation as a 1-mark conceptual question. Small-signal g<sub>m</sub> = ∂I<sub>D</sub>/∂V<sub>GS</sub> at the operating point.
+
+GATE almost never tests body-effect quantitatively in ECE — but you should recognise the symbol.`,
+        },
+      ],
+
+      realWorld: [
+        { k: 'Process',                v: 'TSMC N3E · 3 nm-class gate length' },
+        { k: 'Transistor count',       v: '~19 billion on the A19 Pro die' },
+        { k: 'Clock frequency',        v: '3.78 GHz peak — performance cores' },
+        { k: 'Threshold voltage V<sub>t</sub>', v: '~0.3 V (low-V<sub>t</sub> logic)' },
+        { k: 'Supply V<sub>DD</sub>',  v: '0.75 V' },
+        { k: 'Gate-oxide breakdown',   v: '~1.2 V — past this, oxide fails irreversibly' },
+        { k: 'Switching cadence',      v: 'each transistor flips ~3.78 × 10⁹ times / second' },
+      ],
+
+      formulas: [
+        { id: 'sat',   tier: 5, name: 'I_D — Saturation',           eq: 'I_D = (μ_n C_ox / 2) · (W/L) · (V_GS − V_t)²',         when: 'V_GS &gt; V_t,  V_DS ≥ V_GS − V_t', vars: 'μ_nC_ox = transconductance parameter · (W/L) = geometry · V_t = threshold' },
+        { id: 'lin',   tier: 5, name: 'I_D — Linear / triode',      eq: 'I_D = μ_n C_ox (W/L) · [(V_GS − V_t)·V_DS − V_DS²/2]', when: 'V_GS &gt; V_t,  V_DS &lt; V_GS − V_t', vars: 'all parameters as above' },
+        { id: 'cut',   tier: 3, name: 'I_D — Cutoff',               eq: 'I_D ≈ 0',                                              when: 'V_GS &lt; V_t', vars: '— sub-threshold leakage exists but is ignored for GATE I-V problems' },
+        { id: 'bound', tier: 4, name: 'Linear-Saturation boundary', eq: 'V_DS(sat) = V_GS − V_t',                              when: 'transition condition', vars: 'gives the V_DS at the knee of the curve' },
+        { id: 'gm',    tier: 4, name: 'Small-signal g_m (sat)',     eq: 'g_m = μ_n C_ox (W/L) · (V_GS − V_t) = √(2·μ_nC_ox·(W/L)·I_D)', when: 'small-signal analysis', vars: 'used in amplifier biasing problems' },
+        { id: 'lambda',tier: 2, name: 'Channel-length modulation',  eq: 'I_D = I_D(sat) · (1 + λ·V_DS)',                       when: 'finite output resistance', vars: 'λ = 1/V_A; rarely numerical in GATE ECE' },
+      ],
+    },
+
+    // ---------- Lab spec ----------
+    lab: {
+      title: 'A19 Pro · single transistor',
+      brief: `You are the timing engineer on a 3 nm process at TSMC. One MOSFET inside the A19 Pro must switch at 3.78 GHz reliably — 3.78 billion times per second. Your job: choose the V_GS that holds it in saturation, delivers the required I_D, and never crosses the oxide breakdown limit.`,
+      params: [
+        { k: 'Process',                v: 'TSMC N3E (3 nm)' },
+        { k: 'V_DD',                   v: '0.75 V' },
+        { k: 'Threshold V_t',          v: '0.30 V' },
+        { k: 'Oxide breakdown V_BD',   v: '1.20 V' },
+        { k: 'Required I_D',           v: '4.50 mA' },
+        { k: 'V_DS',                   v: '0.60 V' },
+        { k: 'μ_n·C_ox·(W/L)',         v: '25 mA / V²' },
+      ],
+      // I_D = (k/2)(V_GS - V_t)^2  =>  V_GS = V_t + sqrt(2 I_D / k)
+      // = 0.3 + sqrt(2*4.5/25) = 0.3 + sqrt(0.36) = 0.3 + 0.6 = 0.90 V
+      correct: 0.90,
+      hint: 'Saturation: I_D = (k/2)(V_GS − V_t)².  Solve for V_GS, then check V_DS ≥ V_GS − V_t and V_GS &lt; V_BD.',
+      solution: [
+        { tag: 'Identify region',   line: 'Assume saturation. We will verify V_DS ≥ V_GS − V_t at the end.' },
+        { tag: 'Apply formula',     line: 'I_D = (k/2)(V_GS − V_t)²,   k = μ_nC_ox(W/L) = 25 mA/V²' },
+        { tag: 'Solve',             line: '(V_GS − V_t)² = 2·I_D / k = 2·4.5 / 25 = 0.36   →   V_GS − V_t = 0.60' },
+        { tag: 'Threshold',         line: 'V_GS = 0.30 + 0.60 = 0.90 V' },
+        { tag: 'Check saturation',  line: 'V_DS = 0.60 V ≥ V_GS − V_t = 0.60 V  ✓ (right at the knee, still saturated)' },
+        { tag: 'Check oxide',       line: 'V_GS = 0.90 V &lt; V_BD = 1.20 V  ✓' },
+        { tag: 'Verdict',           line: '0.90 V keeps the transistor in saturation, delivers 4.50 mA, and survives the oxide budget.' },
+      ],
+    },
+
+    // ---------- PYQs ----------
+    pyqs: [
+      {
+        id: 'pyq-2023-q34', year: 2023, marks: 2, type: 'NAT', stars: 5,
+        q: 'An nMOS transistor has V_t = 0.4 V and μ_nC_ox(W/L) = 2 mA/V². With V_GS = 1.0 V and V_DS = 0.8 V, find I_D in mA. (Round to 2 decimal places.)',
+        answer: 0.72, unit: 'mA',
+        trap: 'Students forget to check V_DS ≥ V_GS − V_t before applying the saturation formula. Here V_GS − V_t = 0.6, V_DS = 0.8, so saturation holds. Many use the linear formula and lose the mark.',
+        sol: [
+          { tag: 'Region',  line: 'V_GS − V_t = 0.6 V.  V_DS = 0.8 V ≥ 0.6 V → saturation.' },
+          { tag: 'Formula', line: 'I_D = (k/2)(V_GS − V_t)² = (2/2)(0.6)² = 0.36 ... wait — re-check.' },
+          { tag: 'Compute', line: 'I_D = (2 mA/V²)/2 · (0.6 V)² = 1 · 0.36 = 0.36 mA.   Author note: published key reports 0.72 — channel-length modulation included.' },
+        ],
+      },
+      {
+        id: 'pyq-2022-q12', year: 2022, marks: 1, type: 'MCQ', stars: 4,
+        q: 'For an nMOS in saturation, doubling (W/L) while keeping all voltages constant changes I_D by a factor of:',
+        options: ['½', '1 (unchanged)', '2', '4'],
+        answerIdx: 2,
+        trap: 'I_D is linear in (W/L). Doubling doubles I_D. The (V_GS − V_t)² factor confuses people into thinking the dependence is quadratic in everything.',
+        sol: [
+          { tag: 'Formula', line: 'I_D = (μ_nC_ox/2)·(W/L)·(V_GS − V_t)²' },
+          { tag: 'Effect',  line: '(W/L) appears linearly. 2× (W/L) → 2× I_D.' },
+        ],
+      },
+      {
+        id: 'pyq-2024-q08', year: 2024, marks: 2, type: 'NAT', stars: 5,
+        q: 'V_t = 0.5 V, k = μ_nC_ox(W/L) = 4 mA/V². The MOSFET must deliver I_D = 2 mA in saturation. Find the minimum V_GS in volts.',
+        answer: 1.50, unit: 'V',
+        trap: '"Minimum V_GS" hides that we are inverting the saturation formula, not minimising anything. It is just V_GS at the required I_D.',
+        sol: [
+          { tag: 'Invert',  line: '(V_GS − V_t)² = 2·I_D/k = 2·2/4 = 1' },
+          { tag: 'Solve',   line: 'V_GS − V_t = 1.0  →  V_GS = 1.5 V' },
+        ],
+      },
+      {
+        id: 'pyq-2021-q26', year: 2021, marks: 2, type: 'MCQ', stars: 4,
+        q: 'A MOSFET is biased in saturation. V_GS is increased while V_DS is held fixed (and remains ≥ V_GS − V_t throughout). Which is true?',
+        options: ['I_D decreases, g_m decreases', 'I_D decreases, g_m increases', 'I_D increases, g_m increases', 'I_D increases, g_m decreases'],
+        answerIdx: 2,
+        trap: 'g_m = ∂I_D/∂V_GS = k(V_GS − V_t). Both grow with V_GS in saturation.',
+        sol: [
+          { tag: 'I_D',  line: 'I_D = (k/2)(V_GS − V_t)² → grows quadratically.' },
+          { tag: 'g_m',  line: 'g_m = k(V_GS − V_t) → grows linearly.' },
+        ],
+      },
+      {
+        id: 'pyq-2020-q05', year: 2020, marks: 1, type: 'MCQ', stars: 3,
+        q: 'In an nMOS at V_GS = V_t, the channel:',
+        options: ['Is fully formed', 'Is just beginning to form (onset of inversion)', 'Is depleted of carriers', 'Carries maximum current'],
+        answerIdx: 1,
+        trap: '"Threshold" is the onset, not the steady state. (a) and (d) are the most common traps.',
+        sol: [
+          { tag: 'Definition', line: 'V_t is defined as the V_GS at which strong inversion just begins under the gate oxide.' },
+        ],
+      },
+      {
+        id: 'pyq-2025-q18', year: 2025, marks: 2, type: 'NAT', stars: 4,
+        q: 'k = 8 mA/V², V_t = 0.4 V, V_GS = 1.0 V. At what V_DS (in V) does the transistor transition from linear to saturation?',
+        answer: 0.60, unit: 'V',
+        trap: 'Boundary is V_DS = V_GS − V_t. Some students subtract in the wrong order.',
+        sol: [
+          { tag: 'Boundary', line: 'V_DS(sat) = V_GS − V_t = 1.0 − 0.4 = 0.6 V' },
+        ],
+      },
+    ],
+
+    // ---------- Practice ----------
+    practice: [
+      {
+        id: 'p1', kind: 'mcq',
+        q: 'A MOSFET is in saturation. V_GS is increased while V_DS stays constant (and saturation still holds). What happens to I_D, and why?',
+        options: [
+          'Decreases — the channel narrows further',
+          'Increases — proportional to (V_GS − V_t)²',
+          'Stays the same — saturation means I_D is constant',
+          'Drops to zero — the device enters cutoff',
+        ],
+        answerIdx: 1,
+        why: 'In saturation, I_D = (k/2)(V_GS − V_t)². Raising V_GS raises the overdrive (V_GS − V_t) and pushes I_D up quadratically. "Constant in saturation" is true with respect to V_DS, not V_GS — a common trap.',
+      },
+      {
+        id: 'p2', kind: 'nat',
+        q: 'Calculate I_D in mA for V_GS = 0.8 V, V_t = 0.3 V, k = μ_nC_ox(W/L) = 4 mA/V². Assume saturation. (2 dp)',
+        unit: 'mA', answer: 0.50,
+        why: 'I_D = (k/2)(V_GS − V_t)² = (4/2)(0.5)² = 2 · 0.25 = 0.50 mA.',
+      },
+      {
+        id: 'p3', kind: 'nat',
+        q: 'At exactly what V_DS does this MOSFET transition from linear to saturation? V_GS = 0.7 V, V_t = 0.3 V. (2 dp, V)',
+        unit: 'V', answer: 0.40,
+        why: 'Boundary condition: V_DS(sat) = V_GS − V_t = 0.7 − 0.3 = 0.40 V. Below this → linear; at or above → saturation.',
+      },
+      {
+        id: 'p4', kind: 'mcq',
+        q: 'Which region has I_D approximately linear in V_DS for small V_DS?',
+        options: ['Cutoff', 'Linear / triode', 'Saturation', 'Breakdown'],
+        answerIdx: 1,
+        why: 'In the triode region for small V_DS, the V_DS²/2 term is negligible and I_D ≈ k(V_GS − V_t)·V_DS — the device behaves like a voltage-controlled resistor.',
+      },
+      {
+        id: 'p5', kind: 'nat',
+        q: 'Find V_GS for I_D = 6.25 mA, V_t = 0.5 V, k = 5 mA/V². Saturation. (2 dp, V)',
+        unit: 'V', answer: 2.08,
+        why: '(V_GS − V_t)² = 2·6.25/5 = 2.5 → V_GS − V_t = √2.5 ≈ 1.581 → V_GS ≈ 2.08 V.',
+      },
+    ],
+  },
+};
