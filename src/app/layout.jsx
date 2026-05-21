@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <head>
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-538544203"
+          src="https://www.googletagmanager.com/gtag/js?id=G-C3M88RYKF1"
           strategy="afterInteractive"
         />
         <Script id="ga4-init" strategy="afterInteractive">
@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
               analytics_storage: 'granted',
               ad_storage: 'denied',
             });
-            gtag('config', 'G-538544203');
+            gtag('config', 'G-C3M88RYKF1');
           `}
         </Script>
       </head>
