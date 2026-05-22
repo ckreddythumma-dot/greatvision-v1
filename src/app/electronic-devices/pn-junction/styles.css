@@ -1,0 +1,65 @@
+/* ============================================================
+   PN Junction — concept-specific styles
+   Shared styles are imported from ../mosfet-iv/styles.css
+   ============================================================ */
+
+/* Diode cross-section SVG */
+.diode-stage-svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Check-valve analogy */
+.valve-analogy {
+  margin: 24px 0;
+}
+
+/* Override viz-tab region tints for diode modes */
+.viz-tab[data-region="reverse"]        .vizrw { border-left-color: var(--ink-mute); }
+.viz-tab[data-region="zero-bias"]      .vizrw { border-left-color: var(--ink-soft); }
+.viz-tab[data-region="forward-weak"]   .vizrw { border-left-color: var(--amber); }
+.viz-tab[data-region="forward-strong"] .vizrw { border-left-color: var(--accent); }
+.viz-tab[data-region="breakdown"]      .vizrw { border-left-color: var(--bad); }
+
+/* vizstage formula tints for diode */
+.vizstage[data-region="reverse"]        .vizexplain__formula { color: var(--ink-soft); }
+.vizstage[data-region="zero-bias"]      .vizexplain__formula { color: var(--ink-soft); }
+.vizstage[data-region="forward-weak"]   .vizexplain__formula { color: var(--amber-ink); background: var(--amber-soft); border-color: var(--amber); }
+.vizstage[data-region="forward-strong"] .vizexplain__formula { color: var(--accent-ink); background: var(--accent-soft); }
+.vizstage[data-region="breakdown"]      .vizexplain__formula { color: var(--bad); background: var(--bad-soft); border-color: var(--bad); }
+
+/* phone context cards */
+.vizrw__phone {
+  display: flex;
+  gap: 14px;
+  margin-top: 18px;
+  padding: 16px 18px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+}
+.vizrw__phone-icon { font-size: 28px; }
+.vizrw__phone-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* lab phone context (same as MOSFET — ensuring it's available) */
+.lab-phone-ctx {
+  display: flex;
+  gap: 14px;
+  margin-top: 18px;
+  padding: 16px 18px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+}
+.lab-phone-ctx--ok { border-color: var(--ok); }
+.lab-phone-ctx--bad { border-color: var(--bad); }
+.lab-phone-ctx--warn { border-color: var(--amber); }
+.lab-phone-ctx__icon { font-size: 28px; }
+
+/* Jump button adjustments for 5 modes */
+.vizctrl__jumpbtn {
+  min-width: 90px;
+}

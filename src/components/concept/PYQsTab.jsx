@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { parseHtml } from '@/lib/html'
 
 function PYQSparkChart({ pyqs }) {
   const years = [2020,2021,2022,2023,2024,2025,2026]
@@ -109,7 +110,7 @@ function PYQCard({ q, idx }) {
             {q.sol.map((s, si) => (
               <div key={si} className="pyq__step">
                 <span className="pyq__step-tag mono">{s.tag}</span>
-                <span>{s.line}</span>
+                <span>{parseHtml(s.line)}</span>
               </div>
             ))}
           </div>
@@ -131,8 +132,8 @@ export default function PYQsTab({ m }) {
   return (
     <article className="pyqs">
       <div className="theory__rubric">
-        <span className="rubric">PYQs · 2020 → 2026 · MOSFET I–V</span>
-        <span className="mono theory__progress">{m.pyqs.length} questions · 4 of 6 attempted</span>
+        <span className="rubric">PYQs · 2020 → 2026 · {m.shortTitle || m.title}</span>
+        <span className="mono theory__progress">{m.pyqs.length} questions</span>
       </div>
 
       <div className="pyq-filters">
@@ -161,13 +162,12 @@ export default function PYQsTab({ m }) {
 
       <div className="pyq-insight">
         <div>
-          <div className="rubric">Pattern · MOSFET I-V</div>
+          <div className="rubric">Pattern · {m.shortTitle || m.title}</div>
           <h3 className="serif" style={{fontSize:32, margin:'8px 0 12px', lineHeight:1.1}}>
-            <em>6 of 7</em> recent GATE ECE papers tested this concept.
+            <em>{m.pyqInsight?.frequency || '—'}</em> recent GATE ECE papers tested this concept.
           </h3>
           <p style={{color:'var(--ink-soft)', maxWidth:'48ch', fontSize:14}}>
-            MOSFET I–V is among the highest-frequency concepts in Electronic Devices.
-            Saturation-region numerical questions appear almost every year.
+            {m.pyqInsight?.body || ''}
           </p>
         </div>
         <div className="pyq-spark">

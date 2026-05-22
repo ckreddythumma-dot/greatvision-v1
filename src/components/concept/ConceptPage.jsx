@@ -1,10 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
-import TheoryTab from './TheoryTab'
-import VizTab from './VizTab'
-import LabTab from './LabTab'
-import PYQsTab from './PYQsTab'
-import PracticeTab from './PracticeTab'
+import DefaultPYQsTab from './PYQsTab'
+import DefaultPracticeTab from './PracticeTab'
 
 function LockIcon() {
   return (
@@ -15,7 +12,7 @@ function LockIcon() {
   )
 }
 
-function ConceptTopbar({ subject, concept, tabs, activeTab, onTab }) {
+function ConceptTopbar({ subject, concept, tabs, activeTab, onTab, tags = [] }) {
   return (
     <header className="concept-top">
       <div className="concept-top__inner">
@@ -40,10 +37,9 @@ function ConceptTopbar({ subject, concept, tabs, activeTab, onTab }) {
             <div className="eyebrow">{subject.name} · Hero concept</div>
             <h1 className="concept-top__h1">{concept.name}</h1>
             <div className="concept-top__tags">
-              <span className="pill">ECE Core</span>
-              <span className="pill">2 marks</span>
-              <span className="pill">NAT + MCQ</span>
-              <span className="pill pill--accent">Appears in 6 / 7 GATE papers</span>
+              {tags.map((t, i) => (
+                <span key={i} className={`pill ${i === tags.length - 1 ? 'pill--accent' : ''}`}>{t}</span>
+              ))}
             </div>
           </div>
         </div>
@@ -93,81 +89,6 @@ function ConceptSidebar({ subject, concept }) {
   )
 }
 
-function VizSidebar({ subject }) {
-  const groups = [
-    { name: 'MOSFET', open: true, items: [
-      { id: 'mosfet-iv', label: 'I–V Characteristics', active: true },
-      { id: 'mosfet-regions', label: 'Regions of Operation' },
-    ] },
-    { name: 'PN Junction Diode', items: [{ id: 'pn-junction', label: 'I–V & depletion' }] },
-    { name: 'BJT', items: [{ id: 'bjt-regions', label: 'Operating regions' }] },
-    { name: 'Energy Band Diagrams', items: [{ id: 'band-diagram', label: 'Bands & Fermi level' }] },
-  ]
-  return (
-    <aside className="cside cside--viz">
-      <div className="cside__head">
-        <div className="rubric">Viz · tree</div>
-        <div className="cside__head-title serif">{subject.name}</div>
-      </div>
-      {groups.map((g, gi) => (
-        <div key={gi} className="viz-tree">
-          <button className="viz-tree__head">
-            <span className="viz-tree__caret">{g.open ? '▾' : '▸'}</span>
-            <span>{g.name}</span>
-          </button>
-          {g.open && (
-            <ul className="viz-tree__list">
-              {g.items.map(it => (
-                <li key={it.id} className={`viz-tree__item ${it.active ? 'is-active' : ''}`}>
-                  <span className="viz-tree__bullet"/>
-                  {it.label}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      ))}
-    </aside>
-  )
-}
-
-function LabSidebar() {
-  return (
-    <aside className="lab-sidebar">
-      <div className="cside__head">
-        <div className="rubric">Lab · steps</div>
-        <div className="cside__head-title serif">A19 Pro · single MOSFET</div>
-      </div>
-      <ol className="lab-steps-mini">
-        {['Context', 'Parameters', 'Problem', 'Consequence', 'Solution'].map((s, i) => (
-          <li key={i} className="lab-step-mini">
-            <span className="mono">{String(i+1).padStart(2,'0')}</span>
-            <span>{s}</span>
-          </li>
-        ))}
-      </ol>
-      <hr className="rule" style={{margin:'18px 0'}}/>
-      <div className="lab-ref">
-        <div className="rubric">Quick ref</div>
-        <div className="lab-ref__row mono"><span>V_DD</span><span>0.75 V</span></div>
-        <div className="lab-ref__row mono"><span>V_t</span><span>0.30 V</span></div>
-        <div className="lab-ref__row mono"><span>V_BD</span><span>1.20 V</span></div>
-        <div className="lab-ref__row mono"><span>V_DS</span><span>0.60 V</span></div>
-        <div className="lab-ref__row mono"><span>I_D (req)</span><span>4.50 mA</span></div>
-        <div className="lab-ref__row mono"><span>k</span><span>25 mA/V²</span></div>
-      </div>
-      <hr className="rule" style={{margin:'18px 0'}}/>
-      <div className="lab-ref">
-        <div className="rubric">Formulas</div>
-        <div className="mono" style={{fontSize:11, color:'var(--ink-soft)', lineHeight:1.7}}>
-          sat: I_D = (k/2)(V_GS−V_t)²<br/>
-          boundary: V_DS = V_GS − V_t
-        </div>
-      </div>
-    </aside>
-  )
-}
-
 function AuthGateModal({ tabName, onDismiss }) {
   return (
     <div className="auth-overlay" onClick={onDismiss}>
@@ -188,13 +109,19 @@ function AuthGateModal({ tabName, onDismiss }) {
   )
 }
 
-export default function ConceptPage({ subject, concept, mosfetData }) {
+export default function ConceptPage({
+  subject, concept, conceptData,
+  TheoryTab, VizTab, LabTab,
+  PYQsTab = DefaultPYQsTab, PracticeTab = DefaultPracticeTab,
+  VizSidebar, LabSidebar,
+  tags,
+}) {
   const [activeTab, setActiveTab] = useState('theory')
   const [authGateFor, setAuthGateFor] = useState(null)
 
   const isLoggedIn = true
 
-  const tabs = [
+  const tabDefs = [
     { id: 'theory',   label: 'Theory',   locked: false },
     { id: 'viz',      label: 'Viz',      locked: false },
     { id: 'lab',      label: 'Lab',      locked: !isLoggedIn },
@@ -207,28 +134,28 @@ export default function ConceptPage({ subject, concept, mosfetData }) {
     setActiveTab(t.id)
   }
 
-  const m = mosfetData
+  const m = conceptData
 
   return (
     <div className="concept-page">
       <ConceptTopbar subject={subject} concept={concept}
-                     tabs={tabs} activeTab={activeTab} onTab={handleTab}/>
+                     tabs={tabDefs} activeTab={activeTab} onTab={handleTab} tags={tags}/>
 
       <div className={`concept-layout ${activeTab === 'lab' ? 'concept-layout--lab' : ''}`}>
         {(activeTab === 'theory' || activeTab === 'pyqs' || activeTab === 'practice') && (
           <ConceptSidebar subject={subject} concept={concept}/>
         )}
-        {activeTab === 'viz' && <VizSidebar subject={subject}/>}
+        {activeTab === 'viz' && VizSidebar && <VizSidebar subject={subject}/>}
 
         <main className="concept-main" role="main">
-          {activeTab === 'theory'   && <TheoryTab m={m}/>}
-          {activeTab === 'viz'      && <VizTab/>}
-          {activeTab === 'lab'      && <LabTab m={m}/>}
+          {activeTab === 'theory'   && TheoryTab && <TheoryTab m={m}/>}
+          {activeTab === 'viz'      && VizTab && <VizTab/>}
+          {activeTab === 'lab'      && LabTab && <LabTab m={m}/>}
           {activeTab === 'pyqs'     && <PYQsTab m={m}/>}
           {activeTab === 'practice' && <PracticeTab m={m}/>}
         </main>
 
-        {activeTab === 'lab' && <LabSidebar/>}
+        {activeTab === 'lab' && LabSidebar && <LabSidebar/>}
       </div>
 
       {authGateFor && (

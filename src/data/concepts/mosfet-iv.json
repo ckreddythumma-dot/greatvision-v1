@@ -2,6 +2,7 @@
   "id": "mosfet-iv",
   "subjectId": "electronic-devices",
   "title": "MOSFET I–V Characteristics",
+  "shortTitle": "MOSFET I–V",
   "eyebrow": "Electronic Devices · Hero Concept",
   "stars": 5,
   "tags": ["ECE Core", "2 marks", "NAT + MCQ", "Appears in 6/7 GATE papers"],
@@ -134,6 +135,10 @@
       ]
     }
   ],
+  "pyqInsight": {
+    "frequency": "6 of 7",
+    "body": "MOSFET I–V is among the highest-frequency concepts in Electronic Devices. Saturation-region numerical questions appear almost every year."
+  },
   "practice": [
     {
       "id": "p1", "kind": "mcq",

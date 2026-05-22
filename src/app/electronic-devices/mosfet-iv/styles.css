@@ -150,6 +150,8 @@ svg.msstage-svg, .chipzoom svg, .labviz svg, .pyq-spark svg { display: block; ma
   max-width: 1440px;
   margin: 0 auto;
   min-height: calc(100vh - 200px);
+  position: relative;
+  z-index: 1;
 }
 .concept-layout--lab {
   grid-template-columns: minmax(0, 1fr) 280px;

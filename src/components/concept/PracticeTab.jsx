@@ -102,7 +102,7 @@ export default function PracticeTab({ m }) {
       <div className="mastery">
         <div className="mastery__top">
           <div>
-            <div className="eyebrow">Mastery score · MOSFET I-V</div>
+            <div className="eyebrow">Mastery score · {m.shortTitle || m.title}</div>
             <div className="mastery__score">
               <span className="serif" style={{fontSize:64, lineHeight:1}}>{score}</span>
               <span className="mono" style={{fontSize:14, color:'var(--ink-mute)'}}>/ {total} pts</span>

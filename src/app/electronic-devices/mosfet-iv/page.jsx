@@ -1,5 +1,10 @@
 import ConceptPage from '@/components/concept/ConceptPage'
 import mosfetData from '@/data/concepts/mosfet-iv.json'
+import TheoryTab from '@/components/concept/TheoryTab'
+import VizTab from '@/components/concept/VizTab'
+import LabTab from '@/components/concept/LabTab'
+import MosfetVizSidebar from './MosfetVizSidebar'
+import MosfetLabSidebar from './MosfetLabSidebar'
 import './styles.css'
 
 const subject = {
@@ -29,5 +34,17 @@ export const metadata = {
 }
 
 export default function MosfetIVPage() {
-  return <ConceptPage subject={subject} concept={concept} mosfetData={mosfetData} />
+  return (
+    <ConceptPage
+      subject={subject}
+      concept={concept}
+      conceptData={mosfetData}
+      tags={mosfetData.tags}
+      TheoryTab={TheoryTab}
+      VizTab={VizTab}
+      LabTab={LabTab}
+      VizSidebar={MosfetVizSidebar}
+      LabSidebar={MosfetLabSidebar}
+    />
+  )
 }

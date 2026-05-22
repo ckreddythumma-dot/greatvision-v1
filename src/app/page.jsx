@@ -11,7 +11,7 @@ const concepts = [
     id: 'pn-junction',
     title: 'PN Junction Diode',
     sub: 'Where current learns to flow one way',
-    status: 'coming',
+    status: 'live',
   },
   {
     id: 'bjt',
