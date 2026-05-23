@@ -179,15 +179,20 @@ svg.msstage-svg, .chipzoom svg, .labviz svg, .pyq-spark svg { display: block; ma
 .cside__head-title { font-size: 22px; margin-top: 4px; }
 .cside__list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
 .cside__item {
+  padding: 0;
+  cursor: pointer;
+  font-size: 13px;
+  border-left: 2px solid transparent;
+  transition: background 120ms ease, border-color 120ms ease;
+}
+.cside__item-link {
   display: grid;
   grid-template-columns: 28px 1fr auto;
   gap: 10px;
   padding: 10px 12px 10px 4px;
-  cursor: pointer;
-  font-size: 13px;
   align-items: center;
-  border-left: 2px solid transparent;
-  transition: background 120ms ease, border-color 120ms ease;
+  text-decoration: none;
+  color: inherit;
 }
 .cside__item:hover { background: var(--paper); }
 .cside__item.is-active { background: var(--paper); border-left-color: var(--accent); padding-left: 8px; }

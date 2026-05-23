@@ -16,9 +16,9 @@ const subject = {
   concepts: [
     { id: 'mosfet-iv',     shortName: 'MOSFET I–V Characteristics', stars: 5 },
     { id: 'pn-junction',   shortName: 'PN Junction Diode',          stars: 4 },
-    { id: 'bjt-regions',   shortName: 'BJT Operating Regions',      stars: 4 },
-    { id: 'band-diagrams', shortName: 'Energy Band Diagrams',       stars: 3 },
-    { id: 'hall-effect',   shortName: 'Hall Effect & Mobility',     stars: 3 },
+    { id: 'bjt',              shortName: 'BJT Characteristics',        stars: 4 },
+    { id: 'mosfet-amplifier', shortName: 'MOSFET Amplifier',           stars: 4 },
+    { id: 'cmos-inverter',    shortName: 'CMOS Inverter',              stars: 5 },
   ],
 }
 

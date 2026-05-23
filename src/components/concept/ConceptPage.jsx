@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import DefaultPYQsTab from './PYQsTab'
 import DefaultPracticeTab from './PracticeTab'
 
@@ -72,9 +73,11 @@ function ConceptSidebar({ subject, concept }) {
           const active = c.id === concept.id
           return (
             <li key={c.id} className={`cside__item ${active ? 'is-active' : ''}`}>
-              <div className="cside__item-num mono">{String(i+1).padStart(2,'0')}</div>
-              <div className="cside__item-name">{c.shortName}</div>
-              <div className="cside__item-stars mono">{'★'.repeat(c.stars)}</div>
+              <Link href={`/electronic-devices/${c.id}`} className="cside__item-link">
+                <div className="cside__item-num mono">{String(i+1).padStart(2,'0')}</div>
+                <div className="cside__item-name">{c.shortName}</div>
+                <div className="cside__item-stars mono">{'★'.repeat(c.stars)}</div>
+              </Link>
             </li>
           )
         })}
