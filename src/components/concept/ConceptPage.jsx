@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import DefaultPYQsTab from './PYQsTab'
 import DefaultPracticeTab from './PracticeTab'
@@ -13,24 +13,76 @@ function LockIcon() {
   )
 }
 
-function ConceptTopbar({ subject, concept, tabs, activeTab, onTab, tags = [] }) {
+function MobileConceptNav({ subject, concept, open, onClose }) {
+  useEffect(() => {
+    if (open) document.body.style.overflow = 'hidden'
+    else document.body.style.overflow = ''
+    return () => { document.body.style.overflow = '' }
+  }, [open])
+
+  return (
+    <>
+      <div className={`mobile-nav-overlay ${open ? 'is-open' : ''}`} onClick={onClose}/>
+      <nav className={`mobile-nav-drawer ${open ? 'is-open' : ''}`}>
+        <div className="mobile-nav-drawer__head">
+          <div className="rubric">{subject.shortName}</div>
+          <div className="serif" style={{fontSize:18, marginTop:4}}>{subject.conceptCount} concepts</div>
+          <button className="mobile-nav-drawer__close" onClick={onClose} aria-label="Close navigation">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+        <ul className="mobile-nav-drawer__list">
+          {subject.concepts.map((c, i) => {
+            const active = c.id === concept.id
+            return (
+              <li key={c.id}>
+                <Link href={`/electronic-devices/${c.id}`}
+                      className={`mobile-nav-drawer__item ${active ? 'is-active' : ''}`}
+                      onClick={onClose}>
+                  <span className="mono" style={{fontSize:11, color:'var(--ink-mute)', minWidth:24}}>{String(i+1).padStart(2,'0')}</span>
+                  <span style={{flex:1}}>{c.shortName}</span>
+                  <span className="stars" style={{fontSize:9}}>{'★'.repeat(c.stars)}</span>
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+        <div style={{padding:'16px 20px', borderTop:'1px solid var(--rule)'}}>
+          <Link href="/" className="btn btn--ghost" style={{width:'100%', textAlign:'center', fontSize:12}} onClick={onClose}>
+            &larr; Back to home
+          </Link>
+        </div>
+      </nav>
+    </>
+  )
+}
+
+function ConceptTopbar({ subject, concept, tabs, activeTab, onTab, tags = [], onOpenNav }) {
   return (
     <header className="concept-top">
       <div className="concept-top__inner">
         <div className="concept-top__row">
           <div className="breadcrumb mono">
-            <span>Subjects</span>
+            <Link href="/" style={{color:'inherit'}}>Home</Link>
             <span>&rsaquo;</span>
             <span>{subject.shortName}</span>
             <span>&rsaquo;</span>
             <span>{concept.shortName}</span>
           </div>
           <div className="concept-top__meta">
+            <button className="mobile-nav-toggle" onClick={onOpenNav} aria-label="Open concept navigation">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+              </svg>
+              <span className="mono" style={{fontSize:10}}>Concepts</span>
+            </button>
             <span className="stars">
               {'★'.repeat(concept.stars)}
               <span className="empty">{'★'.repeat(5 - concept.stars)}</span>
             </span>
-            <span className="mono" style={{fontSize:11, color:'var(--ink-mute)', marginLeft:8}}>GATE frequency</span>
+            <span className="mono concept-top__freq-label" style={{fontSize:11, color:'var(--ink-mute)', marginLeft:8}}>GATE frequency</span>
           </div>
         </div>
         <div className="concept-top__title">
@@ -121,6 +173,9 @@ export default function ConceptPage({
 }) {
   const [activeTab, setActiveTab] = useState('theory')
   const [authGateFor, setAuthGateFor] = useState(null)
+  const [mobileNavOpen, setMobileNavOpen] = useState(false)
+  const [tabKey, setTabKey] = useState(0)
+  const mainRef = useRef(null)
 
   const isLoggedIn = true
 
@@ -135,6 +190,7 @@ export default function ConceptPage({
   const handleTab = (t) => {
     if (t.locked) { setAuthGateFor(t.label); return }
     setActiveTab(t.id)
+    setTabKey(k => k + 1)
   }
 
   const m = conceptData
@@ -142,7 +198,11 @@ export default function ConceptPage({
   return (
     <div className="concept-page">
       <ConceptTopbar subject={subject} concept={concept}
-                     tabs={tabDefs} activeTab={activeTab} onTab={handleTab} tags={tags}/>
+                     tabs={tabDefs} activeTab={activeTab} onTab={handleTab} tags={tags}
+                     onOpenNav={() => setMobileNavOpen(true)}/>
+
+      <MobileConceptNav subject={subject} concept={concept}
+                        open={mobileNavOpen} onClose={() => setMobileNavOpen(false)}/>
 
       <div className={`concept-layout ${activeTab === 'lab' ? 'concept-layout--lab' : ''}`}>
         {(activeTab === 'theory' || activeTab === 'pyqs' || activeTab === 'practice') && (
@@ -150,12 +210,14 @@ export default function ConceptPage({
         )}
         {activeTab === 'viz' && VizSidebar && <VizSidebar subject={subject}/>}
 
-        <main className="concept-main" role="main">
-          {activeTab === 'theory'   && TheoryTab && <TheoryTab m={m}/>}
-          {activeTab === 'viz'      && VizTab && <VizTab/>}
-          {activeTab === 'lab'      && LabTab && <LabTab m={m}/>}
-          {activeTab === 'pyqs'     && <PYQsTab m={m}/>}
-          {activeTab === 'practice' && <PracticeTab m={m}/>}
+        <main className="concept-main" role="main" ref={mainRef}>
+          <div key={tabKey} className="concept-main__content">
+            {activeTab === 'theory'   && TheoryTab && <TheoryTab m={m}/>}
+            {activeTab === 'viz'      && VizTab && <VizTab/>}
+            {activeTab === 'lab'      && LabTab && <LabTab m={m}/>}
+            {activeTab === 'pyqs'     && <PYQsTab m={m}/>}
+            {activeTab === 'practice' && <PracticeTab m={m}/>}
+          </div>
         </main>
 
         {activeTab === 'lab' && LabSidebar && <LabSidebar/>}

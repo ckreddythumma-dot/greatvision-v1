@@ -1,5 +1,6 @@
 import Script from 'next/script'
 import './globals.css'
+import './landing.css'
 
 export const metadata = {
   title: 'GreatVision — Interactive ECE Concepts for GATE',
