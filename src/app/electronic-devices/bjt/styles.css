@@ -1,0 +1,75 @@
+/* ============================================================
+   BJT Characteristics — concept-specific styles
+   Shared styles are imported from ../mosfet-iv/styles.css
+   ============================================================ */
+
+/* Override viz-tab region tints for BJT modes */
+.viz-tab[data-region="cutoff"]     .vizrw { border-left-color: var(--ink-mute); }
+.viz-tab[data-region="active"]     .vizrw { border-left-color: var(--accent); }
+.viz-tab[data-region="saturation"] .vizrw { border-left-color: var(--ok); }
+
+/* vizstage formula tints for BJT */
+.vizstage[data-region="cutoff"]     .vizexplain__formula { color: var(--ink-soft); }
+.vizstage[data-region="active"]     .vizexplain__formula { color: var(--accent-ink); background: var(--accent-soft); }
+.vizstage[data-region="saturation"] .vizexplain__formula { color: var(--ok); background: rgba(60,180,100,0.08); border-color: var(--ok); }
+
+/* BJT regions table */
+.theory__regions {
+  margin-top: 32px;
+  border: 1px solid var(--rule);
+}
+.theory__regions-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1.5fr;
+  gap: 0;
+  padding: 10px 16px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.theory__regions-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1.5fr;
+  gap: 0;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--rule);
+  font-size: 14px;
+  align-items: center;
+}
+.theory__regions-row:last-child {
+  border-bottom: none;
+}
+
+/* phone context cards */
+.vizrw__phone {
+  display: flex;
+  gap: 14px;
+  margin-top: 18px;
+  padding: 16px 18px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+}
+.vizrw__phone-icon { font-size: 28px; }
+.vizrw__phone-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* lab phone context */
+.lab-phone-ctx {
+  display: flex;
+  gap: 14px;
+  margin-top: 18px;
+  padding: 16px 18px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+}
+.lab-phone-ctx--ok { border-color: var(--ok); }
+.lab-phone-ctx--bad { border-color: var(--bad); }
+.lab-phone-ctx--warn { border-color: var(--amber); }
+.lab-phone-ctx__icon { font-size: 28px; }

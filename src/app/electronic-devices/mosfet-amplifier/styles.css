@@ -1,0 +1,66 @@
+/* ============================================================
+   MOSFET Amplifier — concept-specific styles
+   Shared styles are imported from ../mosfet-iv/styles.css
+   ============================================================ */
+
+/* Override viz-tab region tints for amp modes */
+.viz-tab[data-region="cutoff"]    .vizrw { border-left-color: var(--ink-mute); }
+.viz-tab[data-region="low-gain"]  .vizrw { border-left-color: var(--amber); }
+.viz-tab[data-region="mid-gain"]  .vizrw { border-left-color: var(--accent); }
+.viz-tab[data-region="high-gain"] .vizrw { border-left-color: var(--ok); }
+
+/* vizstage formula tints for amp */
+.vizstage[data-region="cutoff"]    .vizexplain__formula { color: var(--ink-soft); }
+.vizstage[data-region="low-gain"]  .vizexplain__formula { color: var(--amber-ink); background: var(--amber-soft); border-color: var(--amber); }
+.vizstage[data-region="mid-gain"]  .vizexplain__formula { color: var(--accent-ink); background: var(--accent-soft); }
+.vizstage[data-region="high-gain"] .vizexplain__formula { color: var(--ok); background: rgba(60,180,100,0.08); border-color: var(--ok); }
+
+/* Metrics row for amp viz */
+.vizstage__metrics {
+  display: flex;
+  gap: 32px;
+  padding: 16px 24px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  margin-top: 16px;
+}
+.vizmetric {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.vizmetric__val {
+  font-size: 16px;
+  color: var(--ink);
+}
+
+/* phone context cards */
+.vizrw__phone {
+  display: flex;
+  gap: 14px;
+  margin-top: 18px;
+  padding: 16px 18px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+}
+.vizrw__phone-icon { font-size: 28px; }
+.vizrw__phone-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* lab phone context */
+.lab-phone-ctx {
+  display: flex;
+  gap: 14px;
+  margin-top: 18px;
+  padding: 16px 18px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+}
+.lab-phone-ctx--ok { border-color: var(--ok); }
+.lab-phone-ctx--bad { border-color: var(--bad); }
+.lab-phone-ctx--warn { border-color: var(--amber); }
+.lab-phone-ctx__icon { font-size: 28px; }

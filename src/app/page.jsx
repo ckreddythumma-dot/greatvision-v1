@@ -17,19 +17,19 @@ const concepts = [
     id: 'bjt',
     title: 'BJT Characteristics',
     sub: 'The original amplifier',
-    status: 'coming',
+    status: 'live',
   },
   {
     id: 'mosfet-amplifier',
     title: 'MOSFET Amplifier',
     sub: 'From switch to signal',
-    status: 'coming',
+    status: 'live',
   },
   {
     id: 'cmos-inverter',
     title: 'CMOS Inverter',
     sub: 'The building block of all digital logic',
-    status: 'coming',
+    status: 'live',
   },
 ]
 

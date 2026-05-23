@@ -1,0 +1,54 @@
+/* ============================================================
+   CMOS Inverter — concept-specific styles
+   Shared styles are imported from ../mosfet-iv/styles.css
+   ============================================================ */
+
+/* Override viz-tab region tints for CMOS regions */
+.viz-tab[data-region="region1"] .vizrw { border-left-color: var(--accent); }
+.viz-tab[data-region="region2"] .vizrw { border-left-color: var(--amber); }
+.viz-tab[data-region="region3"] .vizrw { border-left-color: var(--bad); }
+.viz-tab[data-region="region4"] .vizrw { border-left-color: var(--amber); }
+.viz-tab[data-region="region5"] .vizrw { border-left-color: var(--accent); }
+
+/* vizstage formula tints for CMOS */
+.vizstage[data-region="region1"] .vizexplain__formula { color: var(--accent-ink); background: var(--accent-soft); }
+.vizstage[data-region="region2"] .vizexplain__formula { color: var(--amber-ink); background: var(--amber-soft); border-color: var(--amber); }
+.vizstage[data-region="region3"] .vizexplain__formula { color: var(--bad); background: var(--bad-soft); border-color: var(--bad); }
+.vizstage[data-region="region4"] .vizexplain__formula { color: var(--amber-ink); background: var(--amber-soft); border-color: var(--amber); }
+.vizstage[data-region="region5"] .vizexplain__formula { color: var(--accent-ink); background: var(--accent-soft); }
+
+/* phone context cards */
+.vizrw__phone {
+  display: flex;
+  gap: 14px;
+  margin-top: 18px;
+  padding: 16px 18px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+}
+.vizrw__phone-icon { font-size: 28px; }
+.vizrw__phone-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* lab phone context */
+.lab-phone-ctx {
+  display: flex;
+  gap: 14px;
+  margin-top: 18px;
+  padding: 16px 18px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+}
+.lab-phone-ctx--ok { border-color: var(--ok); }
+.lab-phone-ctx--bad { border-color: var(--bad); }
+.lab-phone-ctx--warn { border-color: var(--amber); }
+.lab-phone-ctx__icon { font-size: 28px; }
+
+/* Jump buttons for 5 regions */
+.vizctrl__jumpbtn {
+  min-width: 90px;
+}
