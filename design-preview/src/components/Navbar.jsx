@@ -33,6 +33,22 @@ const NAV_ITEMS = [
   )},
 ]
 
+const CONCEPT_ITEMS = [
+  { href: '/concept/pn-junction', label: 'PN Junction' },
+  { href: '/concept/bjt', label: 'BJT' },
+  { href: '/concept/mosfet-iv', label: 'MOSFET I-V' },
+  { href: '/concept/mosfet-amp', label: 'MOSFET Amplifier' },
+  { href: '/concept/cmos-inv', label: 'CMOS Inverter' },
+]
+
+const conceptIcon = (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="3" width="20" height="14" rx="2"/>
+    <line x1="8" y1="21" x2="16" y2="21"/>
+    <line x1="12" y1="17" x2="12" y2="21"/>
+  </svg>
+)
+
 export default function Navbar() {
   const pathname = usePathname()
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -105,6 +121,21 @@ export default function Navbar() {
               {item.label}
             </Link>
           ))}
+
+          <div style={{ marginTop: 20, paddingTop: 16, borderTop: '1px solid var(--rule)' }}>
+            <span className="eyebrow" style={{ color: 'var(--teal)', marginBottom: 12, display: 'block' }}>CONCEPTS</span>
+            {CONCEPT_ITEMS.map(item => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`mobile-nav-drawer__link ${pathname === item.href ? 'is-active' : ''}`}
+                onClick={() => setDrawerOpen(false)}
+              >
+                {conceptIcon}
+                {item.label}
+              </Link>
+            ))}
+          </div>
 
           <div style={{ marginTop: 24, paddingTop: 16, borderTop: '1px solid var(--rule)', display: 'flex', alignItems: 'center', gap: 12 }}>
             <div className="rnav__user" style={{ width: 32, height: 32, fontSize: 10 }}>RK</div>
