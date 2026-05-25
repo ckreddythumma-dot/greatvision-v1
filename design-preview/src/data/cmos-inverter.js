@@ -1,0 +1,170 @@
+export const CMOS_THEORY = {
+  eli10: {
+    headline: 'Two transistors, zero static power. That is the CMOS trick.',
+    body: [
+      'A CMOS inverter is a light switch that uses zero power when it is ON or OFF.',
+      'Imagine two workers on a seesaw. Worker N sits on the ground side. Worker P sits on the power-supply side. When the input says HIGH, Worker N pulls the output to ground while Worker P lifts off. When the input says LOW, Worker P pulls the output to power while Worker N lifts off.',
+      'At any stable moment, exactly one worker is active and the other is resting. No current flows through the seesaw. Power is only spent during the brief instant when both workers are in motion — the switching transition.',
+      'This is why CMOS is king. 19 billion inverters on the A19 Pro, and they consume almost zero power when not switching. Without this property, your phone battery would last minutes, not hours.',
+    ],
+  },
+  pullQuote: 'Two transistors, zero static power. That is the CMOS trick.',
+  technical: [
+    {
+      h: 'Structure — complementary pair',
+      body: 'A CMOS inverter pairs an <em>NMOS</em> (pull-down) with a <em>PMOS</em> (pull-up). Their gates are tied together (input), their drains are tied together (output). NMOS source connects to ground (V<sub>SS</sub>), PMOS source connects to supply (V<sub>DD</sub>).<br/><br/>The key insight: when NMOS is ON, PMOS is OFF, and vice versa. There is never a DC path from V<sub>DD</sub> to ground in a stable state.',
+    },
+    {
+      h: 'Voltage Transfer Characteristic (VTC)',
+      body: 'The VTC has five regions as V<sub>in</sub> sweeps from 0 to V<sub>DD</sub>:<br/><strong>Region 1</strong> — PMOS ON/linear, NMOS OFF → V<sub>out</sub> = V<sub>DD</sub><br/><strong>Region 2</strong> — PMOS linear, NMOS saturation → V<sub>out</sub> drops<br/><strong>Region 3</strong> — Both saturated → maximum gain, V<sub>out</sub> transitions sharply<br/><strong>Region 4</strong> — PMOS saturation, NMOS linear → V<sub>out</sub> approaches 0<br/><strong>Region 5</strong> — PMOS OFF, NMOS ON/linear → V<sub>out</sub> = 0',
+    },
+    {
+      h: 'Key parameters',
+      body: '<span class="mono">V<sub>M</sub></span> — switching threshold where V<sub>in</sub> = V<sub>out</sub>. For symmetric inverter: V<sub>M</sub> = V<sub>DD</sub>/2.<br/><span class="mono">NM<sub>H</sub></span> — noise margin HIGH = V<sub>OH</sub> − V<sub>IH</sub>.<br/><span class="mono">NM<sub>L</sub></span> — noise margin LOW = V<sub>IL</sub> − V<sub>OL</sub>.<br/><span class="mono">V<sub>OH</sub></span> = V<sub>DD</sub>, <span class="mono">V<sub>OL</sub></span> = 0 (ideal CMOS).<br/>For V<sub>M</sub> = V<sub>DD</sub>/2 (symmetric): (W/L)<sub>p</sub> / (W/L)<sub>n</sub> = μ<sub>n</sub>/μ<sub>p</sub> ≈ 2.5.',
+    },
+    {
+      h: 'GATE depth — what is actually tested',
+      body: 'Switching threshold V<sub>M</sub> calculation (most common, 2-mark NAT). PMOS/NMOS sizing for symmetric switching. Noise margin computation. Power dissipation: P<sub>dynamic</sub> = C<sub>L</sub>V<sub>DD</sub>²f. Propagation delay t<sub>p</sub> and its dependence on transistor sizing.<br/><br/>VTC region identification and transistor state at a given V<sub>in</sub> appear as 1-mark MCQs.',
+    },
+  ],
+  realWorld: [
+    { k: '19 billion gates', v: 'The A19 Pro is built from CMOS inverters — every NAND, NOR, flip-flop uses them' },
+    { k: 'Zero static power', v: 'No DC path from V_DD to ground in stable states — key to battery life' },
+    { k: 'Dynamic power', v: 'P = C_L·V_DD²·f — at 4 GHz, this dominates total chip power' },
+    { k: 'V_DD scaling', v: 'Reducing V_DD from 1.0V to 0.7V cuts dynamic power by half — the 3nm advantage' },
+    { k: 'Noise margins', v: 'Full-swing output (0 to V_DD) gives maximum noise immunity — robust logic' },
+    { k: 'Sizing ratio', v: 'PMOS is ~2.5× wider than NMOS to compensate for lower hole mobility' },
+    { k: 'Leakage at 3nm', v: 'Sub-threshold leakage grows exponentially at small nodes — now 30–40% of total power' },
+  ],
+  formulas: [
+    { name: 'Switching threshold V_M', eq: 'V_M = (V_DD + V_tp + V_tn·r) / (1 + r), r = √(k_n/k_p)', when: 'V_tn and |V_tp| may differ, k_n ≠ k_p', stars: 5 },
+    { name: 'V_M (symmetric)', eq: 'V_M = V_DD / 2', when: 'k_n = k_p and V_tn = |V_tp|', stars: 5 },
+    { name: 'Dynamic power', eq: 'P_dynamic = C_L · V_DD² · f', when: 'switching at frequency f', stars: 5 },
+    { name: 'Noise margin HIGH', eq: 'NM_H = V_OH − V_IH', when: 'evaluating logic robustness', stars: 4 },
+    { name: 'Noise margin LOW', eq: 'NM_L = V_IL − V_OL', when: 'evaluating logic robustness', stars: 4 },
+    { name: 'Propagation delay', eq: 't_p = C_L · V_DD / (2 · I_avg)', when: 'estimating switching speed', stars: 3 },
+  ],
+}
+
+export const CMOS_LAB = {
+  title: 'A19 Pro · logic gate sizing',
+  narrative: 'You are sizing the standard-cell library for the A19 Pro. Every logic gate starts from a CMOS inverter. For symmetric switching (V_M = V_DD/2), you need to calculate the PMOS width. Symmetric switching means equal noise margins — critical for robust logic at 3nm where noise is everywhere.',
+  params: [
+    { label: 'Supply V_DD', value: '1.0 V' },
+    { label: 'V_tn', value: '0.3 V' },
+    { label: '|V_tp|', value: '0.3 V' },
+    { label: '(W/L)_n', value: '2' },
+    { label: 'μ_n / μ_p', value: '2.5' },
+    { label: 'C_ox', value: 'same for both' },
+  ],
+  correctAnswer: 5.00,
+  tolerance: 0.05,
+  answerLabel: '(W/L)_p',
+  unit: '',
+  hint: 'For V_M = V_DD/2 with equal thresholds, you need k_n = k_p, which means (W/L)_p = (μ_n/μ_p) × (W/L)_n.',
+  solution: [
+    { tag: 'Condition', line: 'V<sub>M</sub> = V<sub>DD</sub>/2 requires k<sub>n</sub> = k<sub>p</sub> (when V<sub>tn</sub> = |V<sub>tp</sub>|)' },
+    { tag: 'Expand', line: 'μ<sub>n</sub>C<sub>ox</sub>(W/L)<sub>n</sub> = μ<sub>p</sub>C<sub>ox</sub>(W/L)<sub>p</sub>' },
+    { tag: 'Solve', line: '(W/L)<sub>p</sub> = (μ<sub>n</sub>/μ<sub>p</sub>) × (W/L)<sub>n</sub> = 2.5 × 2 = <strong>5.00</strong>' },
+    { tag: 'Verify', line: 'k<sub>n</sub> = k<sub>p</sub> → r = √(k<sub>n</sub>/k<sub>p</sub>) = 1 → V<sub>M</sub> = (1.0−0.3+0.3×1)/(1+1) = 0.50 V' },
+    { tag: 'Meaning', line: 'PMOS must be 2.5× wider than NMOS because holes are 2.5× slower than electrons. This equalizes pull-up and pull-down strength.' },
+  ],
+}
+
+export const CMOS_PYQS = [
+  {
+    id: 'cmos-pyq-2024', year: 2024, marks: 2, type: 'NAT',
+    q: 'A CMOS inverter has V_DD = 1.8V, V_tn = 0.4V, |V_tp| = 0.4V, k_n = k_p. Find V_M in volts. (2 dp)',
+    answer: 0.90, unit: 'V',
+    trap: 'When k_n = k_p AND V_tn = |V_tp|, V_M = V_DD/2. Students who use the general formula unnecessarily make arithmetic errors.',
+    why: 'k_n = k_p and V_tn = |V_tp| → V_M = V_DD/2 = 1.8/2 = 0.90 V. Symmetric condition makes it trivial.',
+  },
+  {
+    id: 'cmos-pyq-2023', year: 2023, marks: 1, type: 'MCQ',
+    q: 'In a CMOS inverter at steady state (V_in = 0 or V_DD), the static power dissipation is:',
+    options: ['C_L·V_DD²·f', 'Approximately zero', 'V_DD²/R_on', 'I_D × V_DS'],
+    answerIdx: 1,
+    trap: 'At steady state, one transistor is OFF creating an open circuit. No DC path from V_DD to ground.',
+    why: 'CMOS advantage: at V_in = 0 or V_DD, one transistor is OFF → no DC current → zero static power (ignoring leakage).',
+  },
+  {
+    id: 'cmos-pyq-2022', year: 2022, marks: 2, type: 'NAT',
+    q: 'A CMOS inverter switches at f = 1 GHz with C_L = 10 fF and V_DD = 1.0V. Find dynamic power in μW. (2 dp)',
+    answer: 10.00, unit: 'μW',
+    trap: 'Watch units: P = C_L·V_DD²·f = 10×10⁻¹⁵ × 1² × 10⁹ = 10×10⁻⁶ = 10 μW.',
+    why: 'P = C_L·V_DD²·f = 10 fF × (1.0 V)² × 1 GHz = 10×10⁻¹⁵ × 10⁹ = 10.00 μW.',
+  },
+  {
+    id: 'cmos-pyq-2021', year: 2021, marks: 1, type: 'MCQ',
+    q: 'To shift V_M of a CMOS inverter toward V_DD, you should:',
+    options: ['Make PMOS wider (stronger pull-up)', 'Make NMOS wider (stronger pull-down)', 'Increase V_DD', 'Decrease V_tn'],
+    answerIdx: 1,
+    trap: 'Stronger NMOS → r = √(k_n/k_p) increases → V_M moves up.',
+    why: 'V_M = (V_DD + V_tp + V_tn·r)/(1+r). Larger r (stronger NMOS) → V_M shifts toward V_DD. Intuition: stronger pull-down needs higher V_in.',
+  },
+  {
+    id: 'cmos-pyq-2025', year: 2025, marks: 2, type: 'NAT',
+    q: 'CMOS inverter: V_DD = 1.0V, V_tn = 0.3V, |V_tp| = 0.3V, k_n/k_p = 4. Find V_M in volts. (2 dp)',
+    answer: 0.43, unit: 'V',
+    trap: 'r = √(k_n/k_p) = √4 = 2. V_M = (1.0 − 0.3 + 0.3×2)/(1+2) = 1.3/3 = 0.43 V.',
+    why: 'r = √(k_n/k_p) = √4 = 2. V_M = (1.0 + (−0.3) + 0.3×2) / (1+2) = (1.0 − 0.3 + 0.6)/3 = 1.3/3 = 0.43 V.',
+  },
+  {
+    id: 'cmos-pyq-2020', year: 2020, marks: 1, type: 'MCQ',
+    q: 'Reducing V_DD in a CMOS circuit from 1.0V to 0.7V reduces dynamic power by approximately:',
+    options: ['30%', '51%', '70%', '49%'],
+    answerIdx: 1,
+    trap: 'P ∝ V_DD². Ratio = (0.7/1.0)² = 0.49. Reduction = 1 − 0.49 = 51%.',
+    why: 'P ∝ V_DD². Power ratio = (0.7)²/(1.0)² = 0.49. Reduction = 51%. V_DD scaling gives quadratic power savings.',
+  },
+]
+
+export const CMOS_PRACTICE = [
+  {
+    id: 'cmos-p1', kind: 'mcq',
+    q: 'At the switching threshold V_M of a CMOS inverter, both transistors are in:',
+    options: [
+      'Cutoff — neither conducts at V_M',
+      'Linear (triode) — both act as resistors',
+      'Saturation — both have maximum gain',
+      'One is in linear, the other in cutoff',
+    ],
+    answerIdx: 2,
+    why: 'At V_M, V_in = V_out. Both transistors satisfy V_DS > V_GS − V_t, putting both in saturation. This is where VTC slope is steepest.',
+  },
+  {
+    id: 'cmos-p2', kind: 'nat',
+    q: 'V_DD = 3.3V, V_tn = |V_tp| = 0.7V, k_n = k_p. Find V_M in volts. (2 dp)',
+    unit: 'V', answer: 1.65,
+    why: 'Symmetric: V_M = V_DD/2 = 3.3/2 = 1.65 V.',
+  },
+  {
+    id: 'cmos-p3', kind: 'nat',
+    q: 'C_L = 50 fF, V_DD = 0.9V, f = 2 GHz. Find P_dynamic in μW. (2 dp)',
+    unit: 'μW', answer: 81.00,
+    why: 'P = C_L·V_DD²·f = 50e-15 × 0.81 × 2e9 = 81.0 μW.',
+  },
+  {
+    id: 'cmos-p4', kind: 'mcq',
+    q: 'The primary reason PMOS is made wider than NMOS in a CMOS inverter is:',
+    options: [
+      'PMOS needs more current to charge the output',
+      'Hole mobility is lower than electron mobility — wider compensates',
+      'PMOS has higher threshold voltage',
+      'To reduce leakage current',
+    ],
+    answerIdx: 1,
+    why: 'μ_p ≈ μ_n/2.5. To match NMOS pull-down strength, PMOS must be ~2.5× wider. Ensures symmetric switching and equal rise/fall times.',
+  },
+  {
+    id: 'cmos-p5', kind: 'nat',
+    q: 'V_OH = 1.0V, V_IH = 0.6V. Find NM_H in volts. (2 dp)',
+    unit: 'V', answer: 0.40,
+    why: 'NM_H = V_OH − V_IH = 1.0 − 0.6 = 0.40 V.',
+  },
+]
+
+export const CMOS_INSIGHT = {
+  frequency: '6 of 7',
+  body: 'CMOS inverter is the highest-frequency topic alongside MOSFET I-V. V_M calculation, power dissipation, and noise margins appear almost every year.',
+}
