@@ -4,6 +4,14 @@ import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import { SUBJECTS } from '@/data/mosfet'
 
+const conceptRoutes = {
+  'mosfet-iv': '/concept/mosfet-iv',
+  'pn-junction': '/concept/pn-junction',
+  'bjt': '/concept/bjt',
+  'mosfet-amp': '/concept/mosfet-amp',
+  'cmos-inv': '/concept/cmos-inv',
+}
+
 export default function SubjectsPage() {
   return (
     <>
@@ -42,7 +50,7 @@ export default function SubjectsPage() {
                   {s.concepts.map((c, ci) => (
                     <Link
                       key={c.id}
-                      href={c.hero ? '/concept/mosfet-iv' : '#'}
+                      href={conceptRoutes[c.id] || '#'}
                       style={{
                         display: 'flex',
                         alignItems: 'center',

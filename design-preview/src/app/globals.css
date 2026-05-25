@@ -1118,8 +1118,8 @@ h1, h2, h3 {
 .mobile-nav-toggle {
   display: none;
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  top: 16px;
+  right: 16px;
   width: 48px;
   height: 48px;
   border-radius: 14px;
