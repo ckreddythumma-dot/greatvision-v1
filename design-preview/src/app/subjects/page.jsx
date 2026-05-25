@@ -10,6 +10,16 @@ const conceptRoutes = {
   'bjt': '/concept/bjt',
   'mosfet-amp': '/concept/mosfet-amp',
   'cmos-inv': '/concept/cmos-inv',
+  'linear-algebra': '/concept/linear-algebra',
+  'calculus': '/concept/calculus',
+  'diff-eq': '/concept/diff-eq',
+  'laplace': '/concept/laplace',
+  'probability': '/concept/probability',
+  'boolean': '/concept/boolean',
+  'kmap': '/concept/kmap',
+  'mux-demux': '/concept/mux-demux',
+  'd-flipflop': '/concept/d-flipflop',
+  'counters': '/concept/counters',
 }
 
 export default function SubjectsPage() {
