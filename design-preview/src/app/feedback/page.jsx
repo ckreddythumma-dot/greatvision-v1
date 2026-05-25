@@ -23,12 +23,46 @@ export default function FeedbackPage() {
   const [email, setEmail] = useState('')
   const [preparing, setPreparing] = useState('')
 
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
+
   const setAnswer = (id, val) => setAnswers(prev => ({ ...prev, [id]: val }))
   const filledCount = Object.keys(answers).filter(k => answers[k] !== undefined && answers[k] !== '').length
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSubmitted(true)
+    setSubmitting(true)
+    setError('')
+
+    const payload = {
+      name: name || 'Anonymous',
+      email: email || '',
+      preparing_for: preparing || '',
+      ...QUESTIONS.reduce((acc, q) => {
+        acc[q.id] = answers[q.id] ?? ''
+        if (q.type === 'rating' && answers[q.id]) {
+          acc[q.id + '_label'] = RATING_LABELS[(answers[q.id]) - 1]
+        }
+        return acc
+      }, {}),
+    }
+
+    try {
+      const res = await fetch('https://formspree.io/f/xkoevyww', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      if (res.ok) {
+        setSubmitted(true)
+      } else {
+        setError('Something went wrong. Please try again.')
+      }
+    } catch {
+      setError('Network error. Please check your connection and try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   if (submitted) {
@@ -242,19 +276,27 @@ export default function FeedbackPage() {
               <button
                 type="submit"
                 className="btn btn--primary"
-                style={{ fontSize: 15, padding: '14px 32px' }}
-                disabled={filledCount < 3}
+                style={{ fontSize: 15, padding: '14px 32px', opacity: submitting ? 0.7 : 1 }}
+                disabled={filledCount < 3 || submitting}
               >
-                Submit feedback
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
+                {submitting ? 'Submitting...' : 'Submit feedback'}
+                {!submitting && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                )}
               </button>
             </div>
 
             {filledCount < 3 && (
               <p className="mono" style={{ fontSize: 11, color: 'var(--warn)', marginTop: 12, textAlign: 'right' }}>
                 Please answer at least 3 questions to submit.
+              </p>
+            )}
+
+            {error && (
+              <p className="mono" style={{ fontSize: 11, color: 'var(--bad)', marginTop: 12, textAlign: 'right' }}>
+                {error}
               </p>
             )}
           </form>
