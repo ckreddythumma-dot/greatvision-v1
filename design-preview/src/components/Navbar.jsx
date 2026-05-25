@@ -4,14 +4,6 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-const conceptIcon = (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="3" width="20" height="14" rx="2"/>
-    <line x1="8" y1="21" x2="16" y2="21"/>
-    <line x1="12" y1="17" x2="12" y2="21"/>
-  </svg>
-)
-
 const NAV_ITEMS = [
   { href: '/', label: 'Home', icon: (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -27,11 +19,6 @@ const NAV_ITEMS = [
       <line x1="9" y1="11" x2="14" y2="11"/>
     </svg>
   )},
-  { href: '/concept/pn-junction', label: 'PN Junction', icon: conceptIcon },
-  { href: '/concept/bjt', label: 'BJT', icon: conceptIcon },
-  { href: '/concept/mosfet-iv', label: 'MOSFET I-V', icon: conceptIcon },
-  { href: '/concept/mosfet-amp', label: 'MOSFET Amplifier', icon: conceptIcon },
-  { href: '/concept/cmos-inv', label: 'CMOS Inverter', icon: conceptIcon },
   { href: '/feedback', label: 'Feedback', icon: (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
