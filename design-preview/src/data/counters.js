@@ -1,15 +1,15 @@
 export const COUNTER_THEORY = {
   eli10: {
-    headline: 'Count up, count down, count to any number. Flip-flops in sequence.',
+    headline: 'Flip-flops in a row that count clock pulses. Like a digital odometer.',
     body: [
-      'A counter is a group of flip-flops connected so that on each clock pulse, the stored number increases (or decreases) by one.',
-      'A 3-bit counter counts from 000 to 111 (0 to 7), then wraps back to 000. That is 8 states, cycling forever. Like an odometer that rolls over.',
-      'Synchronous counters update all flip-flops at the same clock edge — faster and cleaner. Asynchronous (ripple) counters chain flip-flops — each one triggers the next. Simpler but slower because of accumulated delays.',
-      'A modulo-N counter counts from 0 to N-1. A mod-10 counter counts 0 to 9 — used in digital clocks and decimal displays.',
-      'GATE tests state diagrams, counting sequences, and the design of mod-N counters from flip-flops.',
+      'Your car odometer shows distance traveled. Every kilometer, the last digit goes up by one. When it hits 9, it wraps to 0 and the next digit goes up. A digital counter works the same way, but in binary (0s and 1s instead of 0-9).',
+      'A 3-bit counter has 3 flip-flops, each storing one bit. It counts: 000, 001, 010, 011, 100, 101, 110, 111 — that is 0 to 7 in decimal. After 111 it wraps back to 000. Eight states total, cycling forever — a mod-8 counter.',
+      'Each clock pulse adds 1 to the count. The rightmost bit (LSB) flips every single pulse. The next bit flips every 2 pulses. The next flips every 4. This "every other time" pattern is exactly what flip-flops do naturally.',
+      'Synchronous counters are fast — all flip-flops see the same clock and update together. Asynchronous (ripple) counters are simpler — each flip-flop triggers the next one, but the delays add up and make it slower.',
+      'GATE tests mod-N counter design (how many flip-flops for mod-10? Answer: 4, because 2 raised to 4 = 16, which is enough to cover 10 states), counting sequences, and timing diagrams.',
     ],
   },
-  pullQuote: 'Count up, count down, count to any number. Flip-flops in sequence.',
+  pullQuote: 'Flip-flops in a row that count clock pulses. Like a digital odometer.',
   technical: [
     {
       h: 'Types of counters',

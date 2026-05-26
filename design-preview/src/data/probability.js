@@ -1,15 +1,15 @@
 export const PROB_THEORY = {
   eli10: {
-    headline: 'How likely? How spread out? That is probability.',
+    headline: 'What are the chances? Flip coins, count outcomes, do the math.',
     body: [
-      'Probability answers one question: how likely is something to happen? Flip a fair coin — probability of heads is 1/2. Roll a die — probability of getting 6 is 1/6.',
-      'A random variable is a number that depends on chance. Your GATE score is a random variable before the exam. After the exam, it is a fixed number.',
-      'The mean (expected value) tells you the center — the average outcome if you repeated the experiment forever. The variance tells you how spread out the outcomes are around the mean.',
-      'Two events are independent if one does not affect the other. Coin flips are independent. Drawing cards without replacement is not.',
-      'GATE tests Bayes\' theorem (updating probability with new evidence), common distributions (Gaussian, Poisson, Binomial), and expectation calculations.',
+      'You flip a coin. What are the chances of heads? You already know — 50%, or 1 out of 2. That "1 out of 2" is probability. Roll a die and the chance of getting a 6 is 1 out of 6. Probability is just: outcomes you want divided by all possible outcomes.',
+      'Now imagine the average. If you roll a die 6000 times, you expect each number about 1000 times. The average roll is about 3.5. This average (called expected value or mean) tells you the "center" of your outcomes.',
+      'But averages hide information. Two students can both average 50 marks, but one scores 49-51 every time while the other swings between 0 and 100. The spread (called variance) measures how wild the swings are.',
+      'Bayes\' theorem is the star of GATE probability. It answers: "something happened — looking backward, what was the most likely cause?" Example: a defective chip was found. Which factory probably made it?',
+      'The distributions you need: Binomial (how many heads in 10 flips?), Poisson (how many defects per wafer?), and Gaussian (the bell curve — most natural measurements follow it).',
     ],
   },
-  pullQuote: 'How likely? How spread out? That is probability.',
+  pullQuote: 'What are the chances? Flip coins, count outcomes, do the math.',
   technical: [
     {
       h: 'Foundations',

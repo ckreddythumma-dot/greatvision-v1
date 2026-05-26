@@ -4,13 +4,14 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import TheoryTab from '@/components/TheoryTab'
+import LinearAlgebraViz from '@/components/LinearAlgebraViz'
 import GenericLabTab from '@/components/GenericLabTab'
 import PYQsTab from '@/components/PYQsTab'
 import PracticeTab from '@/components/PracticeTab'
 import { LA_THEORY, LA_LAB, LA_PYQS, LA_PRACTICE, LA_INSIGHT } from '@/data/linear-algebra'
 import { SUBJECTS } from '@/data/mosfet'
 
-const TABS = ['Theory', 'Lab', 'PYQs', 'Practice']
+const TABS = ['Theory', 'Viz', 'Lab', 'PYQs', 'Practice']
 const concepts = SUBJECTS[1].concepts
 
 const conceptRoutes = {
@@ -89,7 +90,7 @@ export default function LinearAlgebraPage() {
                   onClick={() => setActiveTab(i)}
                 >
                   {tab}
-                  {i >= 1 && (
+                  {i >= 2 && (
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
                          style={{ marginLeft: 4, opacity: 0.4 }}>
                       <rect x="3" y="11" width="18" height="11" rx="2"/>
@@ -103,9 +104,10 @@ export default function LinearAlgebraPage() {
 
           <div className="concept-main" style={{ padding: '0 48px 80px' }} key={activeTab}>
             {activeTab === 0 && <TheoryTab theory={LA_THEORY} />}
-            {activeTab === 1 && <GenericLabTab lab={LA_LAB} concept="linear-algebra" />}
-            {activeTab === 2 && <PYQsTab pyqs={LA_PYQS} insight={LA_INSIGHT} conceptTitle="Linear Algebra" />}
-            {activeTab === 3 && <PracticeTab practice={LA_PRACTICE} conceptTitle="Linear Algebra" />}
+            {activeTab === 1 && <LinearAlgebraViz />}
+            {activeTab === 2 && <GenericLabTab lab={LA_LAB} concept="linear-algebra" />}
+            {activeTab === 3 && <PYQsTab pyqs={LA_PYQS} insight={LA_INSIGHT} conceptTitle="Linear Algebra" />}
+            {activeTab === 4 && <PracticeTab practice={LA_PRACTICE} conceptTitle="Linear Algebra" />}
           </div>
         </main>
       </div>

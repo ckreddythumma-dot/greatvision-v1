@@ -1,15 +1,15 @@
 export const LAPLACE_THEORY = {
   eli10: {
-    headline: 'Turn calculus into algebra. Solve. Transform back.',
+    headline: 'Hard math in, easy algebra out. Solve, then translate back.',
     body: [
-      'Differential equations are hard to solve directly. Laplace transform converts them into simple algebra — multiply, divide, factor — things you already know.',
-      'The idea: take a function of time f(t) and transform it into a function of a new variable s. In the s-domain, derivatives become multiplication by s. Integration becomes division by s.',
-      'Solve the algebra problem in the s-domain. Then use the inverse Laplace transform to convert back to the time domain. Done.',
-      'It is like translating a problem from a hard language to an easy one, solving it there, and translating the answer back.',
-      'GATE loves Laplace because it connects every major topic — circuits, control systems, signals — into one framework.',
+      'Imagine you get a math problem written in a language you find hard. You could struggle with it directly, or you could translate it to a language you know, solve it there, and translate the answer back. The Laplace transform does exactly this for engineers.',
+      'Differential equations (the "hard language") involve rates of change and integrals — messy to solve directly. The Laplace transform converts them into simple algebra (the "easy language") — just multiply, divide, and simplify fractions. Things you already know.',
+      'The magic trick: in the new world (called the s-domain), taking a derivative becomes "multiply by s." Integration becomes "divide by s." A scary calculus problem becomes a fraction you can simplify with basic algebra.',
+      'After solving the easy algebra, you use the inverse Laplace transform (basically a lookup table) to convert the answer back to the real world. Three steps: transform, solve algebra, look up the answer.',
+      'GATE loves Laplace because it connects circuits, control systems, and signals into one framework. Most questions: transform, simplify, look up the inverse in a standard table.',
     ],
   },
-  pullQuote: 'Turn calculus into algebra. Solve. Transform back.',
+  pullQuote: 'Hard math in, easy algebra out. Solve, then translate back.',
   technical: [
     {
       h: 'Definition and intuition',

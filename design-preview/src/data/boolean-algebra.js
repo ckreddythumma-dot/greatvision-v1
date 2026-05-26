@@ -1,15 +1,15 @@
 export const BOOL_THEORY = {
   eli10: {
-    headline: 'Two values. Three operations. Every digital circuit ever.',
+    headline: 'ON or OFF. Every computer starts here.',
     body: [
-      'Boolean algebra is the math of ON and OFF. There are only two values: 1 (true/high) and 0 (false/low). That is it.',
-      'Three operations build everything: AND (both must be 1), OR (at least one must be 1), NOT (flip the value). Every digital circuit — from a calculator to the A19 Pro — is made from these three.',
-      'You can simplify expressions using rules like De Morgan\'s: NOT(A AND B) = (NOT A) OR (NOT B). Simpler expression = fewer transistors = less power = cheaper chip.',
-      'A truth table lists every possible input combination and the output. For n inputs, there are 2ⁿ rows. Two inputs = 4 rows. Three inputs = 8 rows.',
-      'GATE tests whether you can simplify expressions and convert between truth tables, expressions, and gate diagrams.',
+      'A light switch has two positions — ON and OFF. In digital circuits, we call them 1 and 0. That is all a computer understands. Boolean algebra is the math for working with these two values.',
+      'There are only three basic operations. AND: both switches must be ON for the light to turn on (like two switches in series). OR: either switch being ON turns the light on (like switches in parallel). NOT: flip the switch — ON becomes OFF, OFF becomes ON.',
+      'With just these three operations, you can build anything — calculators, phones, the entire A19 Pro chip. Every circuit in every computer is a combination of AND, OR, and NOT.',
+      'A truth table is a cheat sheet that lists every possible combination of inputs (ON/OFF) and the resulting output. For 2 inputs there are 4 combinations. For 3 inputs, 8 combinations. For n inputs, 2 raised to n.',
+      'GATE tests if you can simplify expressions. Simpler expression = fewer gates = fewer transistors = cheaper, faster chip. De Morgan\'s theorem is the key trick: NOT(A AND B) = (NOT A) OR (NOT B).',
     ],
   },
-  pullQuote: 'Two values. Three operations. Every digital circuit ever.',
+  pullQuote: 'ON or OFF. Every computer starts here.',
   technical: [
     {
       h: 'Fundamental operations',

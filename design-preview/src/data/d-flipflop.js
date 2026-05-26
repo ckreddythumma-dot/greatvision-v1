@@ -1,15 +1,15 @@
 export const DFF_THEORY = {
   eli10: {
-    headline: 'Remember one bit. Update on the clock edge. That is memory.',
+    headline: 'A tiny memory. It remembers one bit — on command.',
     body: [
-      'A D flip-flop is the simplest memory element. It stores exactly one bit — a 0 or a 1.',
-      'It has two inputs: D (data) and CLK (clock). On the rising edge of the clock, whatever is on D gets captured and held at the output Q. Between clock edges, Q does not change — no matter what D does.',
-      'This is how digital systems remember things. A register is 32 or 64 flip-flops side by side. The A19 Pro has millions of flip-flops holding the processor state.',
-      'The key insight: the clock synchronizes everything. All flip-flops update at the same instant. This is what makes digital design reliable — data moves in lockstep with the clock.',
-      'GATE tests timing diagrams, setup/hold time violations, and state machine design using flip-flops.',
+      'Imagine a camera. You see a scene through the viewfinder (that is the D input). Nothing is saved yet — you are just looking. The moment you press the shutter button (that is the clock), the camera captures exactly what is in front of it. After that, the photo (Q, the output) stays frozen — even if the scene changes.',
+      'A D flip-flop works exactly like this. It has one data input (D), one clock input (CLK), and one output (Q). Most of the time, Q holds its old value and ignores D. Only at the rising edge of the clock (the instant CLK jumps from 0 to 1), Q captures whatever D is.',
+      'Between clock edges, D can change as much as it wants — Q stays frozen. This is what makes it memory. Without this, digital circuits could never store or remember anything.',
+      'A register in your phone is just 64 flip-flops side by side, each storing one bit. All 64 update together on the same clock edge. The A19 Pro has millions of flip-flops holding the entire processor state.',
+      'GATE tests timing diagrams (given CLK and D waveforms, draw Q), setup time (D must be stable before the clock edge), hold time (D must stay stable briefly after), and state machines built from flip-flops.',
     ],
   },
-  pullQuote: 'Remember one bit. Update on the clock edge. That is memory.',
+  pullQuote: 'A tiny memory. It remembers one bit — on command.',
   technical: [
     {
       h: 'D flip-flop operation',

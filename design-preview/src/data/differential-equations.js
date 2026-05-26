@@ -1,15 +1,15 @@
 export const DE_THEORY = {
   eli10: {
-    headline: 'The equation describes the rule. The solution describes the motion.',
+    headline: 'A rule about how things change. Solve it to see what actually happens.',
     body: [
-      'A differential equation is a recipe that tells you how something changes. "The speed of cooling is proportional to the temperature difference." That is a differential equation in English.',
-      'The equation itself is the rule. Solving it gives you the actual behavior over time — the temperature curve, the voltage waveform, the population growth.',
-      'First-order means only the first derivative appears (rate of change). Second-order means the second derivative appears (acceleration). Most circuits are first or second order.',
-      'An RC circuit is a first-order DE. An RLC circuit is a second-order DE. The solution tells you whether the voltage rings, decays smoothly, or oscillates forever.',
-      'GATE tests whether you can classify the equation, pick the right method, and solve it.',
+      'You fill a bucket that has a hole at the bottom. Water flows in from a tap and leaks out through the hole. The leak rate depends on how much water is in the bucket — more water means more pressure means faster leak. This "the rate of change depends on the current amount" is a differential equation.',
+      'The equation itself is just the rule — like saying "the water level drops by 10% every minute." Solving the equation gives you the actual water level at any point in time — the full picture, not just the rule.',
+      'First-order means only the speed (first derivative) appears. Second-order means acceleration (second derivative) appears too. An RC circuit (resistor + capacitor) is first-order. An RLC circuit (add an inductor) is second-order and can oscillate.',
+      'The key method for first-order: find an integrating factor (a special multiplier that makes the equation solvable). For second-order: write a helper equation, solve it, and the roots tell you the behavior — smooth decay, ringing, or blowing up.',
+      'In GATE, you get an equation, figure out its type, pick the right method, and solve. RC/RL circuit transients are the most common application tested.',
     ],
   },
-  pullQuote: 'The equation describes the rule. The solution describes the motion.',
+  pullQuote: 'A rule about how things change. Solve it to see what actually happens.',
   technical: [
     {
       h: 'Classification',

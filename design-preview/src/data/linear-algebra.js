@@ -1,15 +1,15 @@
 export const LA_THEORY = {
   eli10: {
-    headline: 'Stretch, rotate, squish. Every matrix is a transformation.',
+    headline: 'Numbers in a box. The box stretches and rotates things.',
     body: [
-      'A matrix is a machine that transforms vectors. Put in a vector, get out a different vector — stretched, rotated, or squished.',
-      'Some special vectors go through the machine and come out pointing in the same direction — only their length changes. These are eigenvectors. The scaling factor is the eigenvalue.',
-      'If the eigenvalue is 2, the vector gets twice as long. If it is 0.5, it gets half as long. If it is negative, it flips direction.',
-      'Why does GATE care? Because eigenvalues tell you everything about a system — stability, oscillation, steady state. A control system with a negative eigenvalue is stable. A positive one blows up.',
-      'Every linear system — circuits, signals, control — reduces to matrices and eigenvalues at some point.',
+      'Imagine a spreadsheet — numbers arranged in rows and columns. That is a matrix. A 2x2 matrix has 2 rows and 2 columns, so just 4 numbers total. Nothing complicated — just a box of numbers.',
+      'Now, what does a matrix DO? Think of it as a machine. You feed in a list of numbers (called a vector — just a column of numbers, like coordinates on a map), and the machine spits out a different list. The point moved — it got stretched, rotated, or squished.',
+      'Some special inputs go through the machine and come out pointing the same way — they only get longer or shorter. These are called eigenvectors. The amount they stretch by is the eigenvalue. Eigenvalue 2 means it doubles. Eigenvalue -1 means it flips direction.',
+      'Why care? Eigenvalues tell engineers if a system is stable or will blow up. A circuit with all negative eigenvalues settles down nicely. A positive eigenvalue means uncontrolled oscillation — bad.',
+      'In GATE, you mostly work with 2x2 and 3x3 matrices. The main task: find the eigenvalues using a simple formula, then answer stability or system behavior questions.',
     ],
   },
-  pullQuote: 'Stretch, rotate, squish. Every matrix is a transformation.',
+  pullQuote: 'Numbers in a box. The box stretches and rotates things.',
   technical: [
     {
       h: 'Structure — rows, columns, and what they mean',

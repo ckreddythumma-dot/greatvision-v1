@@ -1,15 +1,15 @@
 export const CALC_THEORY = {
   eli10: {
-    headline: 'Find the peak. Find the valley. That is optimization.',
+    headline: 'How fast is it changing? How much has piled up?',
     body: [
-      'Calculus is about change. The derivative tells you how fast something is changing at any instant. The integral tells you how much has accumulated over time.',
-      'Maxima and minima are the peaks and valleys of a function. At a peak, the function stops going up and starts going down. At that exact point, the slope is zero — the derivative equals zero.',
-      'But zero slope does not always mean a peak or valley. It could be a flat spot (inflection point). The second derivative test settles it: negative means peak (concave down), positive means valley (concave up).',
-      'GATE loves this because optimization is everywhere in engineering — minimizing power, maximizing gain, finding the best operating point.',
-      'Partial derivatives extend this to functions of multiple variables — most real engineering problems have more than one knob to turn.',
+      'Imagine you are driving. Your speedometer shows 60 km/h right now. That number — your speed at this exact instant — is what calculus calls a derivative. It answers: "how fast is this thing changing right now?"',
+      'Now picture a hill. As you drive up, the road gets steeper. At the very top, the road is flat for one instant — the slope is zero. That flat point at the top is a maximum. The bottom of a valley is a minimum. Finding these peaks and valleys is called optimization.',
+      'How do you know if a flat point is a hilltop or a valley? Check if the slope is curving downward (hilltop) or upward (valley). This is called the second derivative test — the most commonly tested idea in GATE.',
+      'The second big idea is the integral — the opposite of the derivative. If the derivative is your speed, the integral is the total distance you traveled. It adds up tiny pieces to get the whole answer.',
+      'GATE loves asking: "find the maximum of this function" or "compute this integral." The tools are simple rules — power rule, chain rule, integration by parts — applied step by step.',
     ],
   },
-  pullQuote: 'Find the peak. Find the valley. That is optimization.',
+  pullQuote: 'How fast is it changing? How much has piled up?',
   technical: [
     {
       h: 'Derivatives — the rate of change',

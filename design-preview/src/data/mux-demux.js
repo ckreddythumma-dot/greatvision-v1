@@ -1,15 +1,15 @@
 export const MUX_THEORY = {
   eli10: {
-    headline: 'One wire, many sources. Pick one. That is a MUX.',
+    headline: 'Many inputs, one output. A switch that picks which one passes through.',
     body: [
-      'A multiplexer (MUX) is a data selector. It has many inputs but only one output. A select signal chooses which input reaches the output.',
-      'Think of a TV remote. You have 100 channels (inputs) but only one screen (output). The channel number (select) picks which one you watch.',
-      'A 2:1 MUX has 2 inputs and 1 select line. A 4:1 MUX has 4 inputs and 2 select lines. An 8:1 MUX has 8 inputs and 3 select lines. Pattern: 2ⁿ inputs need n select lines.',
-      'A demultiplexer (DEMUX) does the reverse — one input, many outputs. The select signal routes the input to one specific output.',
-      'MUXes are everywhere in chips — data buses, register files, ALU operand selection. The A19 Pro\'s register file uses massive MUX trees to select operands.',
+      'Imagine a building with 4 security cameras but only 1 TV monitor. You cannot watch all 4 at once. So you have a switch — press button 0, you see camera 0. Press button 1, camera 1. That switch is a multiplexer (MUX).',
+      'A 4:1 MUX has 4 data inputs (the cameras), 1 output (the monitor), and 2 select lines (the buttons). The select lines form a binary number that picks which input goes to the output. Select = 00 picks input 0. Select = 10 picks input 2.',
+      'Why 2 select lines for 4 inputs? Because 2 bits can make 4 different values (00, 01, 10, 11). For 8 inputs you need 3 select lines (3 bits = 8 values). Pattern: n select lines handle 2 raised to n inputs.',
+      'A demultiplexer (DEMUX) does the opposite — one input, many outputs. The select signal routes the single input to one specific output. Like one speaker broadcasting to one of 4 rooms.',
+      'MUXes are everywhere inside chips. The A19 Pro uses them to pick which register to read, which operation to run, which data to store. GATE tests: find the output for given inputs, or build a Boolean function using a MUX.',
     ],
   },
-  pullQuote: 'One wire, many sources. Pick one. That is a MUX.',
+  pullQuote: 'Many inputs, one output. A switch that picks which one passes through.',
   technical: [
     {
       h: 'MUX operation',

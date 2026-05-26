@@ -1,15 +1,15 @@
 export const KMAP_THEORY = {
   eli10: {
-    headline: 'Draw a grid. Circle the ones. Read the answer.',
+    headline: 'A picture that simplifies circuits. No algebra needed.',
     body: [
-      'A Karnaugh map is a visual shortcut for simplifying Boolean expressions. Instead of using algebra rules, you draw a grid and circle groups of 1s.',
-      'The grid is special — adjacent cells differ by exactly one variable. This means any two 1s next to each other can be combined, eliminating the variable that changed.',
-      'Circle the biggest groups you can (powers of 2: groups of 1, 2, 4, 8). Bigger groups = more variables eliminated = simpler expression.',
-      'Read the simplified expression by looking at which variables stay constant within each group. A variable that is both 0 and 1 inside a group disappears.',
-      'GATE gives you 3-variable or 4-variable K-maps. The trick: the grid wraps around — the left edge is adjacent to the right edge, top to bottom.',
+      'You have a Boolean expression with lots of terms. You could simplify it using algebra rules (tedious and error-prone). Or you could draw a picture and literally see the answer. That picture is a Karnaugh map.',
+      'Step 1 — Draw a grid. For 4 variables (A, B, C, D), you get a 4x4 grid with 16 cells. Each cell is one possible input combination (0000 through 1111). Fill 1 where the output is ON, 0 where OFF.',
+      'Step 2 — Circle groups of adjacent 1s. Groups must be rectangles of size 1, 2, 4, or 8. Bigger groups are better because they eliminate more variables. The grid wraps around: left edge connects to right, top to bottom.',
+      'Step 3 — Read each group. Look at which variables stay constant inside the group. Variables that flip between 0 and 1 inside a group disappear from the expression. Write down only the constant ones.',
+      'GATE gives 3 or 4-variable K-maps. The trick students miss: the grid wraps around. Cells on opposite edges ARE adjacent. Corner cells can form a group. Try it in the interactive map below.',
     ],
   },
-  pullQuote: 'Draw a grid. Circle the ones. Read the answer.',
+  pullQuote: 'A picture that simplifies circuits. No algebra needed.',
   technical: [
     {
       h: 'K-map structure',
