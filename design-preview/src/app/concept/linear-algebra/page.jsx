@@ -24,6 +24,7 @@ const conceptRoutes = {
 
 export default function LinearAlgebraPage() {
   const [activeTab, setActiveTab] = useState(0)
+  const [hasNavigated, setHasNavigated] = useState(false)
 
   return (
     <>
@@ -84,11 +85,7 @@ export default function LinearAlgebraPage() {
 
             <div className="tabs">
               {TABS.map((tab, i) => (
-                <button
-                  key={tab}
-                  className={`tab ${i === activeTab ? 'is-active' : ''}`}
-                  onClick={() => setActiveTab(i)}
-                >
+                <button key={tab} className={`tab ${i === activeTab ? 'is-active' : ''} ${i === 1 && !hasNavigated ? 'tab--attention' : ''}`} onClick={() => { setActiveTab(i); if (i > 0) setHasNavigated(true) }}>
                   {tab}
                   {i >= 2 && (
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
@@ -101,6 +98,13 @@ export default function LinearAlgebraPage() {
               ))}
             </div>
           </div>
+          {!hasNavigated && activeTab === 0 && (
+            <div className="tab-hint-banner">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <span>Click the <strong>Viz</strong> tab above for interactive demos, or explore <strong>Lab</strong>, <strong>PYQs</strong>, and <strong>Practice</strong></span>
+              <button className="tab-hint-dismiss" onClick={() => setHasNavigated(true)}>got it</button>
+            </div>
+          )}
 
           <div className="concept-main" style={{ padding: '0 48px 80px' }} key={activeTab}>
             {activeTab === 0 && <TheoryTab theory={LA_THEORY} />}

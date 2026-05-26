@@ -329,24 +329,76 @@ h1, h2, h3 {
 .tab {
   padding: 12px 24px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: -0.005em;
-  color: var(--ink-faint);
+  color: var(--ink-mute);
   border: none;
   background: none;
   cursor: pointer;
   border-bottom: 2px solid transparent;
   margin-bottom: -1px;
-  transition: color 180ms ease-out, border-color 180ms ease-out;
+  transition: color 180ms ease-out, border-color 180ms ease-out, background 180ms ease-out;
 }
 
 .tab:hover {
   color: var(--ink);
+  background: rgba(58,110,165,0.04);
 }
 
 .tab.is-active {
   color: var(--accent);
   border-bottom-color: var(--accent);
+  background: rgba(58,110,165,0.06);
+}
+
+@keyframes tabPulse {
+  0%, 100% { color: var(--ink-mute); }
+  50% { color: var(--accent); }
+}
+
+.tab--attention {
+  animation: tabPulse 2s ease-in-out 3;
+}
+
+.tab-hint-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 48px;
+  background: linear-gradient(135deg, rgba(58,110,165,0.06), rgba(58,110,165,0.02));
+  border-bottom: 1px solid var(--rule);
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  animation: hintSlideIn 400ms ease-out both;
+}
+
+.tab-hint-banner strong {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.tab-hint-banner .tab-hint-dismiss {
+  margin-left: auto;
+  padding: 2px 10px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--paper);
+  font-size: 11px;
+  color: var(--ink-faint);
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  white-space: nowrap;
+  transition: border-color 120ms ease-out;
+}
+
+.tab-hint-banner .tab-hint-dismiss:hover {
+  border-color: var(--ink-mute);
+}
+
+@keyframes hintSlideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .tab-content {
